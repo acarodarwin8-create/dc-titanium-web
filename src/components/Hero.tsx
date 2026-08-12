@@ -19,8 +19,11 @@ export default function Hero() {
 
   return (
     <section id="inicio" className="w-full" style={{ background: "#0A0A0F" }}>
-      {/* BLOQUE SUPERIOR — imagen edge-to-edge */}
-      <div style={{ position: "relative", width: "100%", height: "70vh" }}>
+      {/* BLOQUE SUPERIOR — imagen edge-to-edge. aspectRatio respeta la proporción real
+          del banner (2752x1536) para que object-fit:cover nunca recorte el texto
+          "DC TITANIUM BUILDERS" incrustado en la imagen en pantallas angostas;
+          maxHeight limita el alto en desktop igual que antes. */}
+      <div style={{ position: "relative", width: "100%", aspectRatio: "2752 / 1536", maxHeight: "70vh" }}>
         <Image
           src="/Gemini_Generated_Image_kq0x2ukq0x2ukq0x.png"
           alt="DC Titanium Builders — la ingeniería del mañana, edificada hoy"

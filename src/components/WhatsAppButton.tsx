@@ -8,7 +8,7 @@ export default function WhatsAppButton() {
   const [fraseIdx, setFraseIdx] = useState(0);
 
   useEffect(() => {
-    const handleScroll = () => setVisible(window.scrollY > 200);
+    const handleScroll = () => setVisible(window.scrollY > 300);
     handleScroll();
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -16,7 +16,7 @@ export default function WhatsAppButton() {
 
   useEffect(() => {
     if (!visible) return;
-    const interval = setInterval(() => setFraseIdx((i) => (i + 1) % whatsappFrases.length), 4000);
+    const interval = setInterval(() => setFraseIdx((i) => (i + 1) % whatsappFrases.length), 3500);
     return () => clearInterval(interval);
   }, [visible]);
 

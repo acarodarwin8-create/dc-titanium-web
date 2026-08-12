@@ -4,6 +4,7 @@ import { CartProvider } from "@/context/CartContext";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import WelcomeChat from "@/components/WelcomeChat";
 export const metadata: Metadata = {
   metadataBase: new URL("https://01proyectonextjs.vercel.app"),
   title: {
@@ -64,6 +65,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Footer />
         </CartProvider>
         <WhatsAppButton />
+        <WelcomeChat />
       </body>
     </html>
   );

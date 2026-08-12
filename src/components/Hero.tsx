@@ -1,9 +1,11 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import type { Capa } from "./BuildingCanvas3D";
 import { HERO_NORMATIVAS as NORMATIVAS, HERO_METRICAS as METRICAS, HERO_SOFTWARE_STACK as SOFTWARE, HERO_CAPAS as CAPAS } from "@/content/empresa";
+import { CURSO_MAS_POPULAR } from "@/content/cursos";
+import { programas } from "@/content/programas";
 
 const BuildingCanvas3D = dynamic(() => import("./BuildingCanvas3D"), {
   ssr: false,
@@ -14,28 +16,98 @@ const BuildingCanvas3D = dynamic(() => import("./BuildingCanvas3D"), {
   ),
 });
 
+// Colores de acento por software, reutilizando los mismos tonos que ya usan
+// las tarjetas de cursos (src/content/cursos.ts) para consistencia visual.
+const SOFTWARE_ICONO: Record<string, { letra: string; color: string }> = {
+  ETABS: { letra: "ET", color: "#C9A84C" },
+  Revit: { letra: "RV", color: "#3B82F6" },
+  "Advance Steel": { letra: "AS", color: "#EF4444" },
+  Dynamo: { letra: "DY", color: "#10B981" },
+  Python: { letra: "PY", color: "#F59E0B" },
+  SAP2000: { letra: "SA", color: "#8B5CF6" },
+};
+
+type Slide = { tipo: "imagen" } | { tipo: "texto"; eyebrow: string; titulo: string; sub: string };
+
+const programaDestacado = programas[0];
+
+const SLIDES: Slide[] = [
+  { tipo: "imagen" },
+  {
+    tipo: "texto",
+    eyebrow: "CURSO MÁS POPULAR",
+    titulo: CURSO_MAS_POPULAR.nombre,
+    sub: `${CURSO_MAS_POPULAR.estudiantes}+ estudiantes certificados · desde $${CURSO_MAS_POPULAR.precio} USD`,
+  },
+  {
+    tipo: "texto",
+    eyebrow: "SOFTWARE LAB",
+    titulo: "Domina ETABS, Revit y Advance Steel",
+    sub: "Herramientas de producción profesional, no de salón de clases.",
+  },
+  {
+    tipo: "texto",
+    eyebrow: "PROGRAMAS MÁSTER",
+    titulo: programaDestacado.nombre,
+    sub: `${programaDestacado.duracion} · ${programaDestacado.descripcion}`,
+  },
+];
+
 export default function Hero() {
   const [capa, setCapa] = useState<Capa>("analitico");
+  const [slide, setSlide] = useState(0);
+
+  useEffect(() => {
+    const t = setInterval(() => setSlide((s) => (s + 1) % SLIDES.length), 5000);
+    return () => clearInterval(t);
+  }, []);
 
   return (
     <section id="inicio" className="w-full" style={{ background: "#0A0A0F" }}>
-      {/* BLOQUE SUPERIOR — imagen edge-to-edge. aspectRatio respeta la proporción real
+      {/* BLOQUE SUPERIOR — carrusel edge-to-edge. aspectRatio respeta la proporción real
           del banner (2752x1536) para que object-fit:cover nunca recorte el texto
           "DC TITANIUM BUILDERS" incrustado en la imagen en pantallas angostas;
           maxHeight limita el alto en desktop igual que antes. */}
-      <div style={{ position: "relative", width: "100%", aspectRatio: "2752 / 1536", maxHeight: "70vh" }}>
-        <Image
-          src="/Gemini_Generated_Image_kq0x2ukq0x2ukq0x.png"
-          alt="DC Titanium Builders — la ingeniería del mañana, edificada hoy"
-          fill
-          priority
-          sizes="100vw"
-          style={{ objectFit: "cover" }}
-        />
-        <div className="bg-gradient-to-b from-[#0A0A0F]/20 via-transparent to-[#0A0A0F]" style={{ position: "absolute", inset: 0 }} />
+      <div style={{ position: "relative", width: "100%", aspectRatio: "2752 / 1536", maxHeight: "70vh", overflow: "hidden" }}>
+        {SLIDES.map((s, i) => (
+          <div
+            key={i}
+            style={{
+              position: "absolute",
+              inset: 0,
+              opacity: slide === i ? 1 : 0,
+              transition: "opacity 0.7s ease",
+              pointerEvents: slide === i ? "auto" : "none",
+            }}
+          >
+            {s.tipo === "imagen" ? (
+              <>
+                <Image
+                  src="/Gemini_Generated_Image_kq0x2ukq0x2ukq0x.png"
+                  alt="DC Titanium Builders — la ingeniería del mañana, edificada hoy"
+                  fill
+                  priority
+                  sizes="100vw"
+                  style={{ objectFit: "cover" }}
+                />
+                <div className="bg-gradient-to-b from-[#0A0A0F]/20 via-transparent to-[#0A0A0F]" style={{ position: "absolute", inset: 0 }} />
+              </>
+            ) : (
+              <div style={{ position: "absolute", inset: 0, background: "linear-gradient(135deg,#0A0A0F 0%,#161B22 60%,#0A0A0F 100%)", display: "flex", alignItems: "center" }}>
+                <div style={{ maxWidth: "1280px", margin: "0 auto", width: "100%", padding: "0 1.5rem", paddingBottom: "3rem" }}>
+                  <span className="tb-badge-norm">{s.eyebrow}</span>
+                  <h2 className="text-2xl md:text-4xl font-black" style={{ color: "#FFFFFF", margin: "0.9rem 0 0.6rem", maxWidth: "720px", lineHeight: 1.2 }}>
+                    {s.titulo}
+                  </h2>
+                  <p className="text-sm md:text-base" style={{ color: "#8B949E", maxWidth: "560px" }}>{s.sub}</p>
+                </div>
+              </div>
+            )}
+          </div>
+        ))}
 
-        {/* La imagen ya trae "DC TITANIUM BUILDERS" y el tagline incrustados: solo agregamos los badges de normativa, sin repetir el texto. */}
-        <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: "0 1.5rem 3rem" }}>
+        {/* La imagen ya trae "DC TITANIUM BUILDERS" y el tagline incrustados: solo agregamos los badges de normativa, sin repetir el texto. Se mantienen visibles en todos los slides. */}
+        <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: "0 1.5rem 3rem", zIndex: 2, pointerEvents: "none" }}>
           <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
             <div style={{ display: "flex", gap: "0.6rem", flexWrap: "wrap" }}>
               {NORMATIVAS.map((n) => (
@@ -43,6 +115,26 @@ export default function Hero() {
               ))}
             </div>
           </div>
+        </div>
+
+        {/* Indicadores del carrusel */}
+        <div style={{ position: "absolute", right: "1.5rem", bottom: "1.25rem", display: "flex", gap: "0.4rem", zIndex: 3 }}>
+          {SLIDES.map((_, i) => (
+            <button
+              key={i}
+              aria-label={"Ver slide " + (i + 1)}
+              onClick={() => setSlide(i)}
+              style={{
+                width: slide === i ? "22px" : "7px",
+                height: "7px",
+                borderRadius: "999px",
+                border: "none",
+                cursor: "pointer",
+                background: slide === i ? "#C9A84C" : "rgba(255,255,255,0.35)",
+                transition: "all 0.3s ease",
+              }}
+            />
+          ))}
         </div>
       </div>
 
@@ -113,15 +205,38 @@ export default function Hero() {
       {/* TECH STACK ROW */}
       <div style={{ background: "#0D1117", borderTop: "1px solid #C9A84C" }}>
         <div className="max-w-7xl mx-auto" style={{ padding: "1.75rem 1.5rem", display: "flex", flexWrap: "wrap", gap: "0.75rem", justifyContent: "center" }}>
-          {SOFTWARE.map((s) => (
-            <span
-              key={s}
-              className="bg-[#161B22] border border-[#21262D] text-[#8B949E] hover:border-[#C9A84C]/50 hover:text-[#C9A84C]"
-              style={{ padding: "0.5rem 1.1rem", borderRadius: "999px", fontSize: "0.78rem", fontWeight: 600, fontFamily: "JetBrains Mono,monospace", transition: "all 0.2s" }}
-            >
-              {s}
-            </span>
-          ))}
+          {SOFTWARE.map((s) => {
+            const icono = SOFTWARE_ICONO[s];
+            return (
+              <span
+                key={s}
+                className="bg-[#161B22] border border-[#21262D] text-[#8B949E] hover:border-[#C9A84C]/50 hover:text-[#C9A84C]"
+                style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", padding: "0.4rem 1.1rem 0.4rem 0.4rem", borderRadius: "999px", fontSize: "0.78rem", fontWeight: 600, fontFamily: "JetBrains Mono,monospace", transition: "all 0.2s" }}
+              >
+                {icono && (
+                  <span
+                    style={{
+                      width: "22px",
+                      height: "22px",
+                      borderRadius: "6px",
+                      background: icono.color + "22",
+                      border: "1px solid " + icono.color + "55",
+                      color: icono.color,
+                      fontSize: "0.55rem",
+                      fontWeight: 800,
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      flexShrink: 0,
+                    }}
+                  >
+                    {icono.letra}
+                  </span>
+                )}
+                {s}
+              </span>
+            );
+          })}
         </div>
       </div>
 

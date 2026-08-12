@@ -1,26 +1,77 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap");
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: #FFFFFF; color: #0A0A0A; font-family: "Inter", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+img { max-width: 100%; display: block; }
+button { font-family: inherit; }
+
+::selection { background: rgba(180,145,80,0.2); }
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #F8F9FA; }
+::-webkit-scrollbar-thumb { background: linear-gradient(180deg,#D4AF72,#B8952E); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #B8952E; }
+
+input:focus-visible,
+button:focus-visible,
+a:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid rgb(214,186,134);
+  outline-offset: 2px;
+  border-radius: 4px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+.card-glass-gold {
+  box-shadow: 0 8px 30px rgba(214,186,134,0.08);
+  transition: transform 300ms ease, box-shadow 300ms ease;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.card-glass-gold:hover {
+  transform: perspective(900px) rotateX(3deg) rotateY(-3deg) translateY(-6px);
+  box-shadow: 0 20px 45px rgba(214,186,134,0.2);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Profundidad 3d sutil para logos y visuales de marca */
+.tilt-3d-soft {
+  transition: transform 400ms ease, box-shadow 400ms ease;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.tilt-3d-soft:hover {
+  transform: perspective(1400px) rotateX(1.5deg) rotateY(-1.5deg) scale(1.01);
+}
+
+.tilt-3d {
+  transition: transform 350ms ease, box-shadow 350ms ease;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.tilt-3d:hover {
+  transform: perspective(1000px) rotateX(4deg) rotateY(-4deg) translateY(-4px);
+  box-shadow: 0 30px 60px rgba(11,12,16,0.4);
+}
+
+.logo-3d {
+  transition: transform 350ms ease;
+}
+.logo-3d:hover {
+  transform: perspective(600px) rotateY(12deg) scale(1.05);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-glass-gold,
+  .tilt-3d-soft,
+  .tilt-3d,
+  .logo-3d {
+    transition: none;
   }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  .card-glass-gold:hover,
+  .tilt-3d-soft:hover,
+  .tilt-3d:hover,
+  .logo-3d:hover {
+    transform: none;
+  }
 }

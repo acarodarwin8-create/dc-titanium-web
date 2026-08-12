@@ -39,7 +39,7 @@ export default function Hero() {
       <div style={{ position: "relative", width: "100%", height: "85vh" }}>
         <Image
           src="/Gemini_Generated_Image_kq0x2ukq0x2ukq0x.png"
-          alt="DC Titanium Builders — la ingenieria del manana, edificada hoy"
+          alt="DC Titanium Builders — la ingeniería del mañana, edificada hoy"
           fill
           priority
           sizes="100vw"
@@ -47,14 +47,9 @@ export default function Hero() {
         />
         <div className="bg-gradient-to-b from-[#0A0A0F]/20 via-transparent to-[#0A0A0F]" style={{ position: "absolute", inset: 0 }} />
 
+        {/* La imagen ya trae "DC TITANIUM BUILDERS" y el tagline incrustados: solo agregamos los badges de normativa, sin repetir el texto. */}
         <div style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: "0 1.5rem 3rem" }}>
           <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
-            <h1 className="text-5xl md:text-7xl font-bold text-white" style={{ letterSpacing: "-0.02em", lineHeight: 1.05, marginBottom: "0.75rem" }}>
-              DC TITANIUM BUILDERS
-            </h1>
-            <p className="text-[#E8C96A]" style={{ fontSize: "0.9rem", fontWeight: 600, letterSpacing: "0.12em", marginBottom: "1.5rem" }}>
-              LA INGENIERÍA DEL MAÑANA, EDIFICADA HOY.
-            </p>
             <div style={{ display: "flex", gap: "0.6rem", flexWrap: "wrap" }}>
               {NORMATIVAS.map((n) => (
                 <span key={n} className="tb-badge-norm">{n}</span>
@@ -69,10 +64,10 @@ export default function Hero() {
         <div className="grid grid-cols-1 lg:grid-cols-[3fr_2fr]" style={{ gap: "3.5rem", alignItems: "center" }}>
           {/* IZQUIERDA — 60% */}
           <div>
-            <h2 className="text-4xl md:text-6xl font-black leading-tight" style={{ letterSpacing: "-0.02em", marginBottom: "1.5rem", color: "#FFFFFF" }}>
+            <h1 className="text-4xl md:text-6xl font-black leading-tight" style={{ letterSpacing: "-0.02em", marginBottom: "1.5rem", color: "#FFFFFF" }}>
               La ingeniería estructural del{" "}
               <span className="text-[#C9A84C]">futuro,</span> calculada hoy.
-            </h2>
+            </h1>
 
             <p className="text-[#8B949E] text-lg" style={{ lineHeight: 1.75, marginBottom: "2.25rem", maxWidth: "540px" }}>
               Capacítate en Cálculo Estructural, BIM y Automatización con proyectos reales bajo normativa ACI 318-25 y NEC-SE-DS. Herramientas de producción, no de salón de clases.

@@ -4,7 +4,7 @@ import { Canvas } from "@react-three/fiber";
 import { OrbitControls, OrthographicCamera } from "@react-three/drei";
 import type { Group } from "three";
 
-type Capa = "analitico" | "armado" | "bim";
+export type Capa = "analitico" | "armado" | "bim";
 
 const GRID_X = [0, 5, 10];
 const GRID_Z = [0, 6];
@@ -146,14 +146,7 @@ function Escena({ capa }: { capa: Capa }) {
   );
 }
 
-const CAPAS: { id: Capa; icono: string; label: string }[] = [
-  { id: "analitico", icono: "📐", label: "Modelo Analítico" },
-  { id: "armado", icono: "🏗️", label: "Armado Rebar" },
-  { id: "bim", icono: "🏢", label: "BIM Final" },
-];
-
-export default function BuildingCanvas3D() {
-  const [capa, setCapa] = useState<Capa>("analitico");
+export default function BuildingCanvas3D({ capa }: { capa: Capa }) {
   const [webgl, setWebgl] = useState<boolean | null>(null);
 
   useEffect(() => {
@@ -180,42 +173,11 @@ export default function BuildingCanvas3D() {
   }
 
   return (
-    <div style={{ position: "relative", width: "100%", height: "100%", borderRadius: "16px", overflow: "hidden", background: "radial-gradient(circle at 50% 30%,#161B22,#0A0A0F)" }}>
+    <div style={{ position: "relative", width: "100%", height: "100%", background: "radial-gradient(circle at 50% 30%,#161B22,#0A0A0F)" }}>
       <Canvas dpr={[1, 1.5]} gl={{ antialias: true, alpha: true }}>
         <OrthographicCamera makeDefault position={[22, 16, 22]} zoom={26} near={0.1} far={200} />
         <Escena capa={capa} />
       </Canvas>
-
-      {/* Toggle bar flotante glassmorphism */}
-      <div
-        className="backdrop-blur-xl bg-[#0D1117]/80 border border-[#21262D] rounded-full"
-        style={{ position: "absolute", left: "50%", bottom: "1rem", transform: "translateX(-50%)", display: "flex", gap: "0.25rem", padding: "0.3rem" }}
-      >
-        {CAPAS.map((c) => (
-          <button
-            key={c.id}
-            onClick={() => setCapa(c.id)}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "0.4rem",
-              padding: "0.45rem 0.85rem",
-              borderRadius: "999px",
-              border: "none",
-              cursor: "pointer",
-              background: capa === c.id ? "linear-gradient(135deg,#C9A84C,#E8C96A)" : "transparent",
-              color: capa === c.id ? "#0A0A0F" : "#8B949E",
-              fontSize: "0.68rem",
-              fontWeight: 700,
-              whiteSpace: "nowrap",
-              transition: "all 0.2s",
-            }}
-          >
-            <span>{c.icono}</span>
-            <span className="hidden sm:inline">{c.label}</span>
-          </button>
-        ))}
-      </div>
     </div>
   );
 }

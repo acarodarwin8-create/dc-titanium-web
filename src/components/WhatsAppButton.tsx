@@ -1,50 +1,35 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 export default function WhatsAppButton() {
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const t = setTimeout(() => setVisible(true), 3000);
-    return () => clearTimeout(t);
-  }, []);
+  const [pulse] = useState(true);
 
   return (
     <a
       href="https://wa.me/593999999999"
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Escríbenos por WhatsApp: ¿Tienes dudas sobre un curso?"
-      className="fixed bottom-6 right-6 z-50"
-      style={{
-        display: "flex",
-        alignItems: "center",
-        gap: "0.65rem",
-        padding: "0.85rem 1.25rem",
-        borderRadius: "999px",
-        background: "#25D366",
-        color: "white",
-        fontWeight: 600,
-        fontSize: "0.85rem",
-        textDecoration: "none",
-        boxShadow: "0 8px 24px rgba(37,211,102,0.4)",
-        opacity: visible ? 1 : 0,
-        transform: visible ? "translateY(0)" : "translateY(12px)",
-        pointerEvents: visible ? "auto" : "none",
-        transition: "opacity 0.5s ease, transform 0.5s ease",
-      }}
+      aria-label="Contactar por WhatsApp"
+      className="fixed bottom-6 right-6 z-50 relative flex items-center gap-2
+        bg-[#25D366] text-white px-4 py-3 rounded-full
+        shadow-[0_4px_24px_rgba(37,211,102,0.4)]
+        hover:shadow-[0_4px_32px_rgba(37,211,102,0.6)]
+        hover:scale-105 transition-all duration-300"
     >
-      <span style={{ position: "relative", width: "26px", height: "26px", flexShrink: 0 }}>
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="white">
-          <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.44.79 3.06 1.2 4.72 1.2h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0012.04 2zm5.8 14.1c-.24.68-1.4 1.3-1.93 1.38-.5.08-1.12.11-1.81-.11-.42-.13-.95-.31-1.64-.6-2.88-1.24-4.76-4.15-4.9-4.34-.14-.19-1.17-1.56-1.17-2.98s.73-2.11 1-2.4c.26-.29.57-.36.76-.36.19 0 .38 0 .55.01.18.01.41-.07.64.49.24.58.81 2 .88 2.15.07.15.12.32.02.51-.1.19-.15.31-.29.48-.15.17-.31.38-.44.51-.15.15-.3.31-.13.6.17.29.75 1.24 1.62 2.01 1.11 1 2.05 1.31 2.34 1.46.29.15.46.13.63-.08.17-.21.72-.84.91-1.13.19-.29.38-.24.64-.14.26.1 1.65.78 1.94.92.29.14.48.21.55.33.07.12.07.68-.17 1.36z" />
-        </svg>
-        <span
-          className="animate-ping"
-          style={{ position: "absolute", top: "-2px", right: "-2px", width: "10px", height: "10px", borderRadius: "50%", background: "#EF4444" }}
-        />
-        <span style={{ position: "absolute", top: "-2px", right: "-2px", width: "10px", height: "10px", borderRadius: "50%", background: "#EF4444" }} />
-      </span>
-      <span className="hidden sm:inline">¿Tienes dudas sobre un curso?</span>
+      {/* Punto rojo titilando */}
+      {pulse && (
+        <span className="absolute -top-1 -right-1 flex h-3 w-3">
+          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-500 opacity-75" />
+          <span className="relative inline-flex rounded-full h-3 w-3 bg-red-500" />
+        </span>
+      )}
+
+      {/* Icono WhatsApp SVG */}
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+        <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.555 4.116 1.529 5.85L0 24l6.335-1.505A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.006-1.371l-.36-.214-3.727.885.918-3.636-.235-.374A9.818 9.818 0 1112 21.818z" />
+      </svg>
+      <span className="text-sm font-semibold">¿Tienes dudas sobre un curso?</span>
     </a>
   );
 }

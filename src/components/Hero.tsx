@@ -6,6 +6,7 @@ import type { Capa } from "./BuildingCanvas3D";
 import { HERO_NORMATIVAS as NORMATIVAS, HERO_METRICAS as METRICAS, HERO_SOFTWARE_STACK as SOFTWARE, HERO_CAPAS as CAPAS } from "@/content/empresa";
 import { CURSO_MAS_POPULAR } from "@/content/cursos";
 import { programas } from "@/content/programas";
+import { SOFTWARE_ICONOS } from "./SoftwareIcons";
 
 const BuildingCanvas3D = dynamic(() => import("./BuildingCanvas3D"), {
   ssr: false,
@@ -15,17 +16,6 @@ const BuildingCanvas3D = dynamic(() => import("./BuildingCanvas3D"), {
     </div>
   ),
 });
-
-// Colores de acento por software, reutilizando los mismos tonos que ya usan
-// las tarjetas de cursos (src/content/cursos.ts) para consistencia visual.
-const SOFTWARE_ICONO: Record<string, { letra: string; color: string }> = {
-  ETABS: { letra: "ET", color: "#C9A84C" },
-  Revit: { letra: "RV", color: "#3B82F6" },
-  "Advance Steel": { letra: "AS", color: "#EF4444" },
-  Dynamo: { letra: "DY", color: "#10B981" },
-  Python: { letra: "PY", color: "#F59E0B" },
-  SAP2000: { letra: "SA", color: "#8B5CF6" },
-};
 
 type Slide = { tipo: "imagen" } | { tipo: "texto"; eyebrow: string; titulo: string; sub: string };
 
@@ -206,31 +196,29 @@ export default function Hero() {
       <div style={{ background: "#0D1117", borderTop: "1px solid #C9A84C" }}>
         <div className="max-w-7xl mx-auto" style={{ padding: "1.75rem 1.5rem", display: "flex", flexWrap: "wrap", gap: "0.75rem", justifyContent: "center" }}>
           {SOFTWARE.map((s) => {
-            const icono = SOFTWARE_ICONO[s];
+            const icono = SOFTWARE_ICONOS[s];
             return (
               <span
                 key={s}
                 className="bg-[#161B22] border border-[#21262D] text-[#8B949E] hover:border-[#C9A84C]/50 hover:text-[#C9A84C]"
-                style={{ display: "inline-flex", alignItems: "center", gap: "0.5rem", padding: "0.4rem 1.1rem 0.4rem 0.4rem", borderRadius: "999px", fontSize: "0.78rem", fontWeight: 600, fontFamily: "JetBrains Mono,monospace", transition: "all 0.2s" }}
+                style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem", padding: "0.4rem 1.1rem 0.4rem 0.4rem", borderRadius: "999px", fontSize: "0.78rem", fontWeight: 600, fontFamily: "JetBrains Mono,monospace", transition: "all 0.2s" }}
               >
                 {icono && (
                   <span
                     style={{
-                      width: "22px",
-                      height: "22px",
+                      width: "24px",
+                      height: "24px",
                       borderRadius: "6px",
-                      background: icono.color + "22",
-                      border: "1px solid " + icono.color + "55",
+                      background: icono.color + "1a",
+                      border: "1px solid " + icono.color + "40",
                       color: icono.color,
-                      fontSize: "0.55rem",
-                      fontWeight: 800,
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
                       flexShrink: 0,
                     }}
                   >
-                    {icono.letra}
+                    <icono.Icono width={14} height={14} />
                   </span>
                 )}
                 {s}

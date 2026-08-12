@@ -39,6 +39,14 @@ export const empresa = {
 
 export const nombreCorto = empresa.nombre.replace(/\s*S\.A\.$/, '');
 export const whatsappHref = `https://wa.me/${empresa.whatsapp}`;
+
+// Frases rotativas del botón flotante de WhatsApp.
+export const whatsappFrases = [
+  empresa.whatsappMensaje,
+  "Asesoría BIM personalizada →",
+  "Scripts TB PRO disponibles ahora",
+  "Ingeniería de alto rendimiento — escríbenos",
+];
 export const anioCopyright = 2026;
 export const descripcionCorta = 'Plataforma educativa AEC: ingeniería estructural, modelado BIM y automatización — Quito, Ecuador.';
 

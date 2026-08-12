@@ -7,7 +7,7 @@ export default function Horarios() {
   const { addItem } = useCart();
 
   return (
-    <section id="horarios" style={{ background: "#F8F9FA", padding: "6rem 2rem" }}>
+    <section id="horarios" style={{ background: "#F8F9FA", padding: "4rem 1.5rem" }}>
       <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 items-center">
           {/* IZQUIERDA */}

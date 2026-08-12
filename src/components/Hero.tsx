@@ -20,7 +20,7 @@ export default function Hero() {
   return (
     <section id="inicio" className="w-full" style={{ background: "#0A0A0F" }}>
       {/* BLOQUE SUPERIOR — imagen edge-to-edge */}
-      <div style={{ position: "relative", width: "100%", height: "85vh" }}>
+      <div style={{ position: "relative", width: "100%", height: "70vh" }}>
         <Image
           src="/Gemini_Generated_Image_kq0x2ukq0x2ukq0x.png"
           alt="DC Titanium Builders — la ingeniería del mañana, edificada hoy"
@@ -48,33 +48,33 @@ export default function Hero() {
         <div className="grid grid-cols-1 lg:grid-cols-[3fr_2fr]" style={{ gap: "3.5rem", alignItems: "center" }}>
           {/* IZQUIERDA — 60% */}
           <div>
-            <h1 className="text-4xl md:text-6xl font-black leading-tight" style={{ letterSpacing: "-0.02em", marginBottom: "1.5rem", color: "#FFFFFF" }}>
+            <h1 className="text-3xl md:text-5xl font-black leading-tight" style={{ letterSpacing: "-0.02em", marginBottom: "1.25rem", color: "#FFFFFF" }}>
               La ingeniería estructural del{" "}
               <span className="text-[#C9A84C]">futuro,</span> calculada hoy.
             </h1>
 
-            <p className="text-[#8B949E] text-lg" style={{ lineHeight: 1.75, marginBottom: "2.25rem", maxWidth: "540px" }}>
+            <p className="text-[#8B949E] text-sm md:text-base" style={{ lineHeight: 1.7, marginBottom: "1.75rem", maxWidth: "540px" }}>
               Capacítate en Cálculo Estructural, BIM y Automatización con proyectos reales bajo normativa ACI 318-25 y NEC-SE-DS. Herramientas de producción, no de salón de clases.
             </p>
 
-            <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", marginBottom: "2.75rem" }}>
+            <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap", marginBottom: "2.25rem" }}>
               <a href="#cursos" className="tb-btn-primary" style={{ textDecoration: "none", display: "inline-block" }}>
                 Acelera tu Carrera Estructural
               </a>
               <a
                 href="#cursos"
                 className="border border-[#C9A84C] text-[#C9A84C] hover:bg-[#C9A84C] hover:text-[#0A0A0F]"
-                style={{ padding: "0.75rem 2rem", borderRadius: "8px", fontWeight: 700, fontSize: "0.8rem", letterSpacing: "0.05em", textTransform: "uppercase", textDecoration: "none", display: "inline-block", transition: "all 0.3s ease" }}
+                style={{ padding: "0.75rem 1.5rem", borderRadius: "8px", fontWeight: 700, fontSize: "0.75rem", letterSpacing: "0.08em", textTransform: "uppercase", textDecoration: "none", display: "inline-block", transition: "all 0.3s ease" }}
               >
                 Ver Programas Master
               </a>
             </div>
 
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "1.75rem", paddingBottom: "2rem", borderBottom: "1px solid #21262D" }}>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "1.75rem", paddingBottom: "1.5rem", borderBottom: "1px solid #21262D" }}>
               {METRICAS.map((m) => (
                 <div key={m.label} style={{ display: "flex", alignItems: "baseline", gap: "0.4rem" }}>
-                  <span style={{ fontSize: "1.15rem", fontWeight: 800, color: "#C9A84C", fontFamily: "JetBrains Mono,monospace" }}>{m.valor}</span>
-                  <span style={{ fontSize: "0.78rem", color: "#8B949E" }}>{m.label}</span>
+                  <span style={{ fontSize: "1.4rem", fontWeight: 800, color: "#C9A84C", fontFamily: "JetBrains Mono,monospace" }}>{m.valor}</span>
+                  <span style={{ fontSize: "0.7rem", color: "#8B949E", textTransform: "uppercase", letterSpacing: "0.06em" }}>{m.label}</span>
                 </div>
               ))}
             </div>
@@ -121,6 +121,9 @@ export default function Hero() {
           ))}
         </div>
       </div>
+
+      {/* Divisor sutil de cierre */}
+      <div style={{ borderBottom: "1px solid rgba(201,168,76,0.2)" }} />
     </section>
   );
 }

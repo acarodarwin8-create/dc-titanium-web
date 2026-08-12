@@ -14,7 +14,7 @@ function Estrellas() {
 
 export default function Resenas() {
   return (
-    <section id="resenas" style={{ background: "#F8F9FA", padding: "6rem 2rem" }}>
+    <section id="resenas" style={{ background: "#F8F9FA", padding: "4rem 1.5rem" }}>
       <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
         <div className="grid grid-cols-1 lg:grid-cols-[320px_1fr]" style={{ gap: "3rem" }}>
           {/* IZQUIERDA */}

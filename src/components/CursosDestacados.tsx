@@ -11,7 +11,7 @@ export default function CursosDestacados() {
   const filtrados = filtroNivel === "Todos" ? activos : activos.filter((c) => c.nivel === filtroNivel);
 
   return (
-    <section id="cursos" style={{ background: "#FFFFFF", padding: "6rem 2rem" }}>
+    <section id="cursos" style={{ background: "#FFFFFF", padding: "4rem 1.5rem" }}>
       <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
         <div style={{ marginBottom: "3rem" }}>
           <p style={{ fontSize: "0.7rem", fontFamily: "JetBrains Mono,monospace", color: "#D4AF72", letterSpacing: "0.1em", marginBottom: "0.75rem" }}>

@@ -78,14 +78,15 @@ export default function Navbar() {
 
         {/* Main navbar */}
         <div
-          className="backdrop-blur-xl"
+          className={scrolled || mobileOpen ? "backdrop-blur-xl" : ""}
           style={{
-            background: scrolled || mobileOpen ? "rgba(10,10,15,0.92)" : "rgba(10,10,15,0.75)",
-            borderBottom: "1px solid #21262D",
-            transition: "background 0.3s ease",
+            background: scrolled || mobileOpen ? "rgba(10,10,15,0.92)" : "transparent",
+            borderBottom: scrolled || mobileOpen ? "1px solid #21262D" : "1px solid transparent",
+            boxShadow: scrolled || mobileOpen ? "0 8px 24px rgba(0,0,0,0.25)" : "none",
+            transition: "background 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease",
           }}
         >
-          <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 2rem", height: "72px", display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "0 2rem", height: scrolled ? "64px" : "72px", display: "flex", alignItems: "center", justifyContent: "space-between", transition: "height 0.3s ease" }}>
             <Link href="/" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: "0.75rem" }}>
               <img
                 src="/Logo_V8_Premium_Serio.png"

@@ -10,7 +10,7 @@ export default function Portafolio() {
   const [activo, setActivo] = useState(0);
 
   return (
-    <section id="portafolio" style={{ background: "#FFFFFF", padding: "6rem 2rem" }}>
+    <section id="portafolio" style={{ background: "#FFFFFF", padding: "4rem 1.5rem" }}>
       <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 items-center">
           {/* IZQUIERDA */}

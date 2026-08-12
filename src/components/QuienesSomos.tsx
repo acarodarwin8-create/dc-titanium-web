@@ -10,7 +10,7 @@ function CheckDorado() {
 
 export default function QuienesSomos() {
   return (
-    <section id="conocenos" style={{ background: "#FFFFFF", padding: "6rem 2rem" }}>
+    <section id="conocenos" style={{ background: "#FFFFFF", padding: "4rem 1.5rem" }}>
       <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 items-center">
           {/* IZQUIERDA */}
@@ -21,9 +21,11 @@ export default function QuienesSomos() {
             <h2 style={{ fontSize: "clamp(2rem,3.5vw,2.75rem)", fontWeight: 800, color: "#0B0C10", letterSpacing: "-0.03em", marginBottom: "1.5rem" }}>
               No enseñamos teoría de libro de texto.
             </h2>
-            <p style={{ fontSize: "1rem", lineHeight: 1.8, color: "#4B5563", marginBottom: "2rem" }}>
+            <p style={{ fontSize: "1rem", lineHeight: 1.8, color: "#4B5563", marginBottom: "1.5rem" }}>
               Enseñamos la práctica de la oficina de diseño a la obra real. Fundada por ingenieros en ejercicio, DC Titanium Builders nace para cerrar la brecha entre el modelado digital y la seguridad estructural de alto rendimiento.
             </p>
+
+            <div style={{ width: "64px", height: "1px", background: "linear-gradient(90deg,#D4AF72,transparent)", marginBottom: "1.5rem" }} />
 
             <div style={{ display: "flex", flexDirection: "column", gap: "1rem", marginBottom: "2.25rem" }}>
               {BULLETS.map((b) => (
@@ -58,13 +60,17 @@ export default function QuienesSomos() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2" style={{ gap: "1.5rem" }}>
-              {METRICAS.map((m) => (
-                <div key={m.l} style={{ textAlign: "center", background: "#F8F5EF", borderRadius: "12px", padding: "1.5rem 1rem", border: "1px solid #F0DBA0" }}>
-                  <p style={{ fontSize: "clamp(1.75rem,3vw,2.25rem)", fontWeight: 900, color: "#B8952E", fontFamily: "JetBrains Mono,monospace", letterSpacing: "-0.02em", marginBottom: "0.3rem" }}>
+            <div className="grid grid-cols-2 sm:grid-cols-4" style={{ gap: "1.5rem" }}>
+              {METRICAS.map((m, i) => (
+                <div
+                  key={m.l}
+                  className={i === 0 ? "" : "sm:border-l border-[#D4AF72]/25"}
+                  style={{ textAlign: "center", padding: "0 0.5rem" }}
+                >
+                  <p className="text-3xl md:text-4xl font-black" style={{ color: "#B8952E", fontFamily: "JetBrains Mono,monospace", letterSpacing: "-0.02em", marginBottom: "0.3rem" }}>
                     {m.v}
                   </p>
-                  <p style={{ fontSize: "0.7rem", color: "#6B7280", fontWeight: 600, letterSpacing: "0.04em" }}>{m.l}</p>
+                  <p className="text-xs tracking-widest uppercase" style={{ color: "#6B7280", fontWeight: 600 }}>{m.l}</p>
                 </div>
               ))}
             </div>

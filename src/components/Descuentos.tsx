@@ -2,7 +2,7 @@ import { DESCUENTOS_ITEMS as BENEFICIOS, whatsappHref } from "@/content/empresa"
 
 export default function Descuentos() {
   return (
-    <section id="descuentos" style={{ background: "#F8F5EF", padding: "6rem 2rem", borderTop: "1px solid #F0DBA0", borderBottom: "1px solid #F0DBA0" }}>
+    <section id="descuentos" style={{ background: "#F8F5EF", padding: "4rem 1.5rem", borderTop: "1px solid #F0DBA0", borderBottom: "1px solid #F0DBA0" }}>
       <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
         <div style={{ textAlign: "center", marginBottom: "3.5rem" }}>
           <p style={{ fontSize: "0.7rem", fontFamily: "JetBrains Mono,monospace", color: "#B8952E", letterSpacing: "0.1em", marginBottom: "0.75rem" }}>

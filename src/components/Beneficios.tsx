@@ -2,7 +2,7 @@ import { BENEFICIOS_ITEMS as ITEMS } from "@/content/empresa";
 
 export default function Beneficios() {
   return (
-    <section id="comunidad" style={{ background: "#0B0C10", padding: "6rem 2rem" }}>
+    <section id="comunidad" style={{ background: "#0B0C10", padding: "4rem 1.5rem" }}>
       <div style={{ maxWidth: "1280px", margin: "0 auto" }}>
         <div style={{ textAlign: "center", marginBottom: "3.5rem" }}>
           <p style={{ fontSize: "0.7rem", fontFamily: "JetBrains Mono,monospace", color: "#D4AF72", letterSpacing: "0.1em", marginBottom: "0.75rem" }}>

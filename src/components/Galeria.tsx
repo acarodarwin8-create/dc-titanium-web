@@ -1,17 +1,24 @@
 "use client";
 import { useState } from "react";
-import { GALERIA, type GaleriaItem } from "@/data/galeria";
+import type { Recurso } from "@/lib/recursos";
 import { useCart } from "@/context/CartContext";
 import { formatPrice } from "@/lib/currency";
+import { whatsappHref } from "@/content/empresa";
 
 const FILTROS = ["Todos", "Gratis", "Premium"] as const;
+const TRACK_URL = process.env.NEXT_PUBLIC_RECURSOS_API_URL;
 
-export default function Galeria() {
+function registrarDescarga(id: string) {
+  if (!TRACK_URL) return;
+  fetch(`${TRACK_URL}?action=download&id=${encodeURIComponent(id)}`, { mode: "no-cors" }).catch(() => {});
+}
+
+export default function Galeria({ recursos }: { recursos: Recurso[] }) {
   const [filtro, setFiltro] = useState<(typeof FILTROS)[number]>("Todos");
-  const [preview, setPreview] = useState<GaleriaItem | null>(null);
-  const { items, moneda, addItem } = useCart();
+  const [preview, setPreview] = useState<Recurso | null>(null);
+  const { moneda } = useCart();
 
-  const filtrados = GALERIA.filter((g) => {
+  const filtrados = recursos.filter((g) => {
     if (filtro === "Gratis") return g.tipo === "gratis";
     if (filtro === "Premium") return g.tipo === "pago";
     return true;
@@ -55,13 +62,14 @@ export default function Galeria() {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" style={{ gap: "1.5rem" }}>
-          {filtrados.map((g) => {
-            const enCarrito = items.some((i) => i.id === g.id);
-            return (
+        {filtrados.length === 0 ? (
+          <p style={{ color: "#9CA3AF", fontSize: "0.9rem" }}>Aún no hay recursos en esta categoría.</p>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" style={{ gap: "1.5rem" }}>
+            {filtrados.map((g) => (
               <div key={g.id} className="card-glass-gold" style={{ background: "white", borderRadius: "12px", border: "1.5px solid #EEECE6", overflow: "hidden" }}>
                 <div style={{ position: "relative" }}>
-                  <img src={g.imagen} alt={g.titulo} style={{ width: "100%", height: "220px", objectFit: "cover", display: "block" }} />
+                  <img src={g.imagen} alt={g.titulo} style={{ width: "100%", height: "220px", objectFit: "cover", display: "block", background: "#EEECE6" }} />
                   <span
                     style={{
                       position: "absolute",
@@ -83,7 +91,7 @@ export default function Galeria() {
 
                 <div style={{ padding: "1.25rem" }}>
                   <p style={{ fontSize: "0.65rem", color: "#9CA3AF", fontFamily: "JetBrains Mono,monospace", letterSpacing: "0.04em", marginBottom: "0.5rem" }}>
-                    {g.categoria}
+                    {g.categoria}{g.tipoArchivo ? " · " + g.tipoArchivo.toUpperCase() : ""}
                   </p>
                   <h3 style={{ fontSize: "0.95rem", fontWeight: 700, color: "#111827", marginBottom: "1.1rem", lineHeight: 1.4 }}>{g.titulo}</h3>
 
@@ -99,30 +107,30 @@ export default function Galeria() {
                       <span style={{ fontSize: "1.15rem", fontWeight: 800, color: "#B8952E", fontFamily: "JetBrains Mono,monospace" }}>
                         {formatPrice(g.precio, moneda)}
                       </span>
-                      <button
-                        onClick={() => addItem({ id: g.id, titulo: g.titulo, precio: g.precio, software: g.software })}
-                        disabled={enCarrito}
+                      <a
+                        href={g.linkCompra || whatsappHref}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         style={{
                           padding: "0.5rem 1rem",
                           borderRadius: "6px",
-                          background: enCarrito ? "#F3F4F6" : "linear-gradient(135deg,#B8952E,#D4AF72)",
-                          color: enCarrito ? "#6B7280" : "white",
+                          background: "linear-gradient(135deg,#B8952E,#D4AF72)",
+                          color: "white",
                           fontSize: "0.78rem",
                           fontWeight: 600,
-                          border: "none",
-                          cursor: enCarrito ? "default" : "pointer",
+                          textDecoration: "none",
                           whiteSpace: "nowrap",
                         }}
                       >
-                        {enCarrito ? "En el carrito" : "Agregar al Carrito"}
-                      </button>
+                        Comprar
+                      </a>
                     </div>
                   )}
                 </div>
               </div>
-            );
-          })}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Lightbox para items gratis */}
@@ -132,7 +140,11 @@ export default function Galeria() {
           style={{ position: "fixed", inset: 0, background: "rgba(11,12,16,0.85)", backdropFilter: "blur(4px)", zIndex: 300, display: "flex", alignItems: "center", justifyContent: "center", padding: "2rem" }}
         >
           <div onClick={(e) => e.stopPropagation()} style={{ width: "min(760px,100%)", background: "#FBFBFD", borderRadius: "14px", overflow: "hidden", boxShadow: "0 24px 60px rgba(0,0,0,0.4)" }}>
-            <img src={preview.imagen} alt={preview.titulo} style={{ width: "100%", maxHeight: "60vh", objectFit: "cover", display: "block" }} />
+            {preview.tipoArchivo === "video" ? (
+              <video controls poster={preview.imagen} src={preview.linkArchivo} style={{ width: "100%", maxHeight: "60vh", display: "block", background: "#000" }} />
+            ) : (
+              <img src={preview.imagen} alt={preview.titulo} style={{ width: "100%", maxHeight: "60vh", objectFit: "cover", display: "block" }} />
+            )}
             <div style={{ padding: "1.5rem", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "1rem", flexWrap: "wrap" }}>
               <div>
                 <p style={{ fontSize: "0.65rem", color: "#9CA3AF", fontFamily: "JetBrains Mono,monospace", marginBottom: "0.3rem" }}>{preview.categoria}</p>
@@ -140,10 +152,11 @@ export default function Galeria() {
               </div>
               <div style={{ display: "flex", gap: "0.6rem" }}>
                 <a
-                  href={preview.imagen}
+                  href={preview.linkArchivo}
                   download
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => registrarDescarga(preview.id)}
                   style={{ padding: "0.7rem 1.4rem", borderRadius: "8px", background: "linear-gradient(135deg,#D4AF72,#B8952E)", color: "white", fontWeight: 700, fontSize: "0.85rem", textDecoration: "none" }}
                 >
                   Descargar

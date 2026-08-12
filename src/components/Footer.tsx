@@ -1,4 +1,4 @@
-import { VisaIcon, MastercardIcon, PayPalIcon, TransferIcon, LockIcon } from "./PaymentIcons";
+import { EfectivoIcon, TransferIcon, LockIcon } from "./PaymentIcons";
 import { nombreCorto, descripcionCorta, anioCopyright, empresa, REDES_SOCIALES as REDES, FOOTER_COLUMNAS as COLUMNAS, FOOTER_NORMATIVAS as NORMATIVAS } from "@/content/empresa";
 
 export default function Footer() {
@@ -57,14 +57,12 @@ export default function Footer() {
           <div>
             <p style={{ fontSize: "0.65rem", fontFamily: "JetBrains Mono,monospace", color: "#4B5563", letterSpacing: "0.08em", marginBottom: "0.75rem" }}>MÉTODOS DE PAGO</p>
             <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", alignItems: "center" }}>
-              <VisaIcon />
-              <MastercardIcon />
-              <PayPalIcon />
+              <EfectivoIcon />
               <TransferIcon />
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: "0.4rem", marginTop: "0.9rem", fontSize: "0.65rem", color: "#6B7280" }}>
               <LockIcon color="#D4AF72" />
-              Garantía de Pago Seguro SSL 256-Bit
+              Conexión segura SSL 256-Bit
             </div>
           </div>
           <div>

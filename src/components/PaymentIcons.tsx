@@ -58,6 +58,18 @@ export function GooglePayIcon({ className }: IconProps) {
   );
 }
 
+export function EfectivoIcon({ className }: IconProps) {
+  return (
+    <svg className={className} width="38" height="24" viewBox="0 0 38 24" fill="none" role="img" aria-label="Pago en efectivo">
+      <rect width="38" height="24" rx="4" fill="#0B0C10" />
+      <rect x="6" y="7" width="26" height="10" rx="2" stroke="#D4AF72" strokeWidth="1.4" />
+      <circle cx="19" cy="12" r="3" stroke="#D4AF72" strokeWidth="1.4" />
+      <circle cx="9" cy="12" r="0.9" fill="#D4AF72" />
+      <circle cx="29" cy="12" r="0.9" fill="#D4AF72" />
+    </svg>
+  );
+}
+
 export function TransferIcon({ className }: IconProps) {
   return (
     <svg className={className} width="38" height="24" viewBox="0 0 38 24" fill="none" role="img" aria-label="Transferencia bancaria">

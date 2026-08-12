@@ -8,8 +8,11 @@ import Portafolio from "@/components/Portafolio";
 import Galeria from "@/components/Galeria";
 import Resenas from "@/components/Resenas";
 import Contacto from "@/components/Contacto";
+import { obtenerRecursos } from "@/lib/recursos";
 
-export default function Home() {
+export default async function Home() {
+  const recursos = await obtenerRecursos();
+
   return (
     <main>
       <Hero />
@@ -19,7 +22,7 @@ export default function Home() {
       <Beneficios />
       <Horarios />
       <Portafolio />
-      <Galeria />
+      <Galeria recursos={recursos} />
       <Resenas />
       <Contacto />
     </main>

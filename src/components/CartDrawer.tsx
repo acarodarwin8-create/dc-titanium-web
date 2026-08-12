@@ -2,7 +2,8 @@
 import { useState } from "react";
 import { useCart } from "@/context/CartContext";
 import { formatPrice } from "@/lib/currency";
-import { VisaIcon, MastercardIcon, PayPalIcon, StripeIcon, ApplePayIcon, GooglePayIcon, TransferIcon, LockIcon } from "./PaymentIcons";
+import { empresa } from "@/content/empresa";
+import { EfectivoIcon, TransferIcon, LockIcon } from "./PaymentIcons";
 
 const IVA_TASA = 0.15;
 
@@ -145,29 +146,30 @@ export default function CartDrawer() {
               </div>
 
               <div style={{ marginTop: "1.1rem" }}>
-                <p style={{ textAlign: "center", fontSize: "0.62rem", color: "#9CA3AF", letterSpacing: "0.06em", marginBottom: "0.5rem" }}>PAGO SEGURO</p>
+                <p style={{ textAlign: "center", fontSize: "0.62rem", color: "#9CA3AF", letterSpacing: "0.06em", marginBottom: "0.5rem" }}>FORMAS DE PAGO</p>
                 <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "0.4rem" }}>
-                  <VisaIcon />
-                  <MastercardIcon />
-                  <PayPalIcon />
-                  <StripeIcon />
-                  <ApplePayIcon />
-                  <GooglePayIcon />
+                  <EfectivoIcon />
                   <TransferIcon />
                 </div>
               </div>
 
               <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "0.4rem", margin: "1rem 0", fontSize: "0.7rem", color: "#6B7280" }}>
                 <LockIcon />
-                Garantía de Pago Seguro SSL 256-Bit
+                Conexión segura SSL 256-Bit
               </div>
 
               <a
-                href="#contacto"
+                href={`https://wa.me/${empresa.whatsapp}?text=${encodeURIComponent(
+                  "Hola, quiero coordinar el pago de mi pedido:\n" +
+                    items.map((i) => "- " + i.titulo).join("\n") +
+                    `\nTotal: ${formatPrice(total, moneda)}`
+                )}`}
+                target="_blank"
+                rel="noopener noreferrer"
                 onClick={() => toggleCart(false)}
                 style={{ display: "block", textAlign: "center", padding: "0.95rem", borderRadius: "8px", background: "rgb(214,186,134)", color: "#0B0C10", fontWeight: 700, fontSize: "0.9rem", textDecoration: "none", marginBottom: "0.65rem" }}
               >
-                Proceder al Pago Seguro →
+                Coordinar Pago por WhatsApp →
               </a>
               <button
                 onClick={() => toggleCart(false)}

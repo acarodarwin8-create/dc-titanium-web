@@ -4,7 +4,7 @@ import type { Moneda } from "@/lib/currency";
 
 // Forma minima que debe cumplir cualquier producto comprable (cursos, items de galeria, etc.)
 export type CartItem = {
-  id: number;
+  id: string | number;
   titulo: string;
   precio: number;
   software: string[];
@@ -17,7 +17,7 @@ type CartContextType = {
   cuponCodigo: string | null;
   descuentoPorcentaje: number;
   addItem: (item: CartItem) => void;
-  removeItem: (id: number) => void;
+  removeItem: (id: string | number) => void;
   clearCart: () => void;
   toggleCart: (force?: boolean) => void;
   setMoneda: (m: Moneda) => void;
@@ -61,7 +61,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setIsOpen(true);
   };
 
-  const removeItem = (id: number) => setItems((prev) => prev.filter((c) => c.id !== id));
+  const removeItem = (id: string | number) => setItems((prev) => prev.filter((c) => c.id !== id));
 
   const clearCart = () => {
     setItems([]);

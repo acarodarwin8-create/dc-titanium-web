@@ -1,8 +1,7 @@
 "use client";
 import { useState, type CSSProperties } from "react";
-import { CURSOS } from "@/data/cursos";
-
-const PAISES = ["Ecuador", "Colombia", "Perú", "México", "Chile", "Argentina", "España", "Otro"];
+import { cursos } from "@/content/cursos";
+import { PAISES } from "@/content/empresa";
 
 const inputStyle: CSSProperties = {
   width: "100%",
@@ -77,8 +76,8 @@ export default function Contacto() {
             <label style={labelStyle} htmlFor="curso">Curso de interés</label>
             <select id="curso" name="curso" required defaultValue="" style={{ ...inputStyle, cursor: "pointer" }}>
               <option value="" disabled>Selecciona una opcion</option>
-              {CURSOS.map((c) => (
-                <option key={c.id} value={c.titulo}>{c.titulo}</option>
+              {cursos.map((c) => (
+                <option key={c.id} value={c.nombre}>{c.nombre}</option>
               ))}
               <option value="Otro / no estoy seguro">Otro / no estoy seguro</option>
             </select>

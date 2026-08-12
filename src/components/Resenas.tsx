@@ -1,8 +1,4 @@
-const RESENAS = [
-  { nombre: "Carlos M.", fecha: "hace 2 meses", texto: "El curso de ETABS me cambió la vida profesional. Los scripts de Python me ahorran 3 horas por proyecto." },
-  { nombre: "Ana R.", fecha: "hace 3 meses", texto: "Nunca había visto explicar ACI 318-25 de forma tan práctica. Apliqué lo aprendido al día siguiente en obra." },
-  { nombre: "Pedro L.", fecha: "hace 1 mes", texto: "DC Titanium tiene el mejor contenido de ingeniería estructural en Ecuador. Vale cada centavo." },
-];
+import { testimonios, resumenResenas } from "@/content/testimonios";
 
 function Estrellas() {
   return (
@@ -26,16 +22,16 @@ export default function Resenas() {
             <p style={{ fontSize: "0.7rem", fontFamily: "JetBrains Mono,monospace", color: "#D4AF72", letterSpacing: "0.1em", marginBottom: "0.75rem" }}>
               OPINIONES
             </p>
-            <h3 style={{ fontSize: "1.6rem", fontWeight: 800, color: "#0B0C10", marginBottom: "0.75rem" }}>Excelente</h3>
+            <h3 style={{ fontSize: "1.6rem", fontWeight: 800, color: "#0B0C10", marginBottom: "0.75rem" }}>{resumenResenas.calificacion}</h3>
             <Estrellas />
             <p style={{ fontSize: "0.9rem", color: "#6B7280", marginTop: "0.75rem" }}>
-              A base de 87 reseñas — <strong style={{ color: "#374151" }}>Google</strong>
+              A base de {resumenResenas.totalResenas} reseñas — <strong style={{ color: "#374151" }}>{resumenResenas.fuente}</strong>
             </p>
           </div>
 
           {/* DERECHA — cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" style={{ gap: "1.5rem" }}>
-            {RESENAS.map((r) => (
+            {testimonios.map((r) => (
               <div key={r.nombre} className="card-glass-gold" style={{ background: "white", borderRadius: "14px", border: "1px solid #EEECE6", padding: "1.75rem" }}>
                 <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1rem" }}>
                   <div style={{ width: "42px", height: "42px", borderRadius: "50%", background: "linear-gradient(135deg,#D4AF72,#B8952E)", display: "flex", alignItems: "center", justifyContent: "center", color: "white", fontWeight: 700, fontSize: "1rem", flexShrink: 0 }}>

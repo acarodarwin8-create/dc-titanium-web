@@ -1,13 +1,14 @@
 "use client";
 import { useState } from "react";
-import { CURSOS, NIVEL_COLOR } from "@/data/cursos";
+import { cursos, NIVEL_COLOR } from "@/content/cursos";
 import { useCart } from "@/context/CartContext";
 import { formatPrice } from "@/lib/currency";
 
 export default function CursosDestacados() {
   const [filtroNivel, setFiltroNivel] = useState("Todos");
   const { items, moneda, addItem } = useCart();
-  const filtrados = filtroNivel === "Todos" ? CURSOS : CURSOS.filter((c) => c.nivel === filtroNivel);
+  const activos = cursos.filter((c) => c.activo);
+  const filtrados = filtroNivel === "Todos" ? activos : activos.filter((c) => c.nivel === filtroNivel);
 
   return (
     <section id="cursos" style={{ background: "#FFFFFF", padding: "6rem 2rem" }}>
@@ -49,7 +50,7 @@ export default function CursosDestacados() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" style={{ gap: "1.5rem" }}>
           {filtrados.map((c) => {
-            const desc = c.original ? Math.round((1 - c.precio / c.original) * 100) : 0;
+            const desc = c.precioOriginal ? Math.round((1 - c.precio / c.precioOriginal) * 100) : 0;
             const enCarrito = items.some((i) => i.id === c.id);
             return (
               <div key={c.id} className="card-glass-gold" style={{ background: "white", borderRadius: "12px", border: "1.5px solid #EEECE6", overflow: "hidden" }}>
@@ -59,13 +60,13 @@ export default function CursosDestacados() {
                       -{desc}%
                     </span>
                   )}
-                  <p style={{ fontSize: "1.5rem", fontWeight: 800, color: "#D4AF72", fontFamily: "JetBrains Mono,monospace", marginBottom: "0.25rem" }}>{c.software[0]}</p>
+                  <p style={{ fontSize: "1.5rem", fontWeight: 800, color: c.color, fontFamily: "JetBrains Mono,monospace", marginBottom: "0.25rem" }}>{c.software[0]}</p>
                   {c.software.length > 1 && (
                     <p style={{ fontSize: "0.65rem", color: "#9CA3AF", fontFamily: "JetBrains Mono,monospace" }}>+ {c.software.slice(1).join(" / ")}</p>
                   )}
-                  {c.cert && (
+                  {c.certificacion && (
                     <span style={{ position: "absolute", bottom: "1rem", left: "1rem", background: "rgba(212,175,114,0.15)", border: "1px solid rgba(212,175,114,0.3)", color: "#D4AF72", fontSize: "0.6rem", fontFamily: "JetBrains Mono,monospace", padding: "0.2rem 0.5rem", borderRadius: "4px" }}>
-                      {c.cert}
+                      {c.certificacion}
                     </span>
                   )}
                 </div>
@@ -75,10 +76,10 @@ export default function CursosDestacados() {
                     <span style={{ fontSize: "0.65rem", fontWeight: 600, color: NIVEL_COLOR[c.nivel] || "#374151", background: (NIVEL_COLOR[c.nivel] || "#374151") + "15", padding: "0.2rem 0.5rem", borderRadius: "4px", fontFamily: "JetBrains Mono,monospace" }}>
                       {c.nivel}
                     </span>
-                    <span style={{ fontSize: "0.65rem", color: "#9CA3AF", fontFamily: "JetBrains Mono,monospace", alignSelf: "center" }}>{c.formato}</span>
+                    <span style={{ fontSize: "0.65rem", color: "#9CA3AF", fontFamily: "JetBrains Mono,monospace", alignSelf: "center" }}>{c.modalidad}</span>
                   </div>
-                  <h3 style={{ fontSize: "0.95rem", fontWeight: 700, color: "#111827", marginBottom: "0.5rem", lineHeight: 1.4 }}>{c.titulo}</h3>
-                  <p style={{ fontSize: "0.8rem", color: "#9CA3AF", marginBottom: "1rem", lineHeight: 1.5 }}>{c.subtitulo}</p>
+                  <h3 style={{ fontSize: "0.95rem", fontWeight: 700, color: "#111827", marginBottom: "0.5rem", lineHeight: 1.4 }}>{c.nombre}</h3>
+                  <p style={{ fontSize: "0.8rem", color: "#9CA3AF", marginBottom: "1rem", lineHeight: 1.5 }}>{c.descripcion}</p>
                   <div style={{ display: "flex", gap: "1rem", fontSize: "0.72rem", color: "#9CA3AF", fontFamily: "JetBrains Mono,monospace", paddingBottom: "1rem", borderBottom: "1px solid #F5F5F5", marginBottom: "1rem" }}>
                     <span>{c.rating} stars</span>
                     <span>{c.lecciones} lec</span>
@@ -88,10 +89,10 @@ export default function CursosDestacados() {
                   <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                     <div>
                       <span style={{ fontSize: "1.4rem", fontWeight: 800, color: "#B8952E", fontFamily: "JetBrains Mono,monospace" }}>{formatPrice(c.precio, moneda)}</span>
-                      {c.original && <span style={{ fontSize: "0.8rem", color: "#D1D5DB", textDecoration: "line-through", marginLeft: "0.5rem" }}>{formatPrice(c.original, moneda)}</span>}
+                      {c.precioOriginal && <span style={{ fontSize: "0.8rem", color: "#D1D5DB", textDecoration: "line-through", marginLeft: "0.5rem" }}>{formatPrice(c.precioOriginal, moneda)}</span>}
                     </div>
                     <button
-                      onClick={() => addItem(c)}
+                      onClick={() => addItem({ id: c.id, titulo: c.nombre, precio: c.precio, software: c.software })}
                       disabled={enCarrito}
                       style={{
                         padding: "0.5rem 1rem",

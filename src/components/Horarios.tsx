@@ -1,12 +1,7 @@
 "use client";
-import { CURSOS } from "@/data/cursos";
+import { cursos } from "@/content/cursos";
+import { horarios } from "@/content/horarios";
 import { useCart } from "@/context/CartContext";
-
-const HORARIOS = [
-  { cursoId: 1, nombre: "ETABS SMF Avanzado", dias: "Lun-Mie", horario: "19:00-21:00", duracion: "32h", inicio: "1 Sep" },
-  { cursoId: 2, nombre: "Revit + Dynamo BIM", dias: "Mar-Jue", horario: "18:00-20:00", duracion: "24h", inicio: "8 Sep" },
-  { cursoId: 3, nombre: "Advance Steel AISC", dias: "Sab-Dom", horario: "09:00-12:00", duracion: "40h", inicio: "6 Sep" },
-];
 
 export default function Horarios() {
   const { addItem } = useCart();
@@ -51,8 +46,8 @@ export default function Horarios() {
                   </tr>
                 </thead>
                 <tbody>
-                  {HORARIOS.map((h, i) => {
-                    const curso = CURSOS.find((c) => c.id === h.cursoId);
+                  {horarios.map((h, i) => {
+                    const curso = cursos.find((c) => c.id === h.cursoId);
                     return (
                       <tr key={h.nombre} style={{ background: i % 2 === 0 ? "white" : "#FAFAFA", borderBottom: "1px solid #F5F5F5" }}>
                         <td style={{ padding: "1rem 1.1rem", fontSize: "0.82rem", fontWeight: 700, color: "#0B0C10" }}>{h.nombre}</td>
@@ -63,7 +58,7 @@ export default function Horarios() {
                         <td style={{ padding: "1rem 1.1rem" }}>
                           {curso && (
                             <button
-                              onClick={() => addItem(curso)}
+                              onClick={() => addItem({ id: curso.id, titulo: curso.nombre, precio: curso.precio, software: curso.software })}
                               style={{ padding: "0.4rem 0.85rem", borderRadius: "6px", background: "#0B0C10", color: "white", fontSize: "0.72rem", fontWeight: 600, border: "none", cursor: "pointer", whiteSpace: "nowrap" }}
                             >
                               Inscribirme a este Curso

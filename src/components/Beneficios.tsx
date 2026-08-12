@@ -1,9 +1,4 @@
-const ITEMS = [
-  { icono: "⚙", titulo: "SOFTWARE PROFESIONAL", desc: "ETABS, Revit, Advance Steel, SAP2000, SAFE, Dynamo." },
-  { icono: "◈", titulo: "CERTIFICACIÓN OFICIAL", desc: "Autodesk Certified, CSI Certified, constancias DC Titanium." },
-  { icono: "⬡", titulo: "COMUNIDAD ACTIVA", desc: "Grupo privado, foros, LinkedIn, TikTok, YouTube." },
-  { icono: "⌬", titulo: "RECURSOS PREMIUM", desc: "Scripts TB PRO, plantillas .rte, tutoriales exclusivos." },
-];
+import { BENEFICIOS_ITEMS as ITEMS } from "@/content/empresa";
 
 export default function Beneficios() {
   return (

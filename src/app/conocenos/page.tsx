@@ -1,29 +1,12 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { empresa, PROYECTO_STATS, CONOCENOS_STATS as STATS, MISION, VISION } from "@/content/empresa";
+import { softwareLab } from "@/content/software";
 
 export const metadata: Metadata = {
   title: "Conócenos",
   description: "DC Titanium Builders S.A. — la firma que construye ingenieros de producción.",
 };
-
-const PROYECTO_STATS = [
-  { label: "Pisos", valor: "9 + subsuelo" },
-  { label: "Sistema", valor: "SMF" },
-  { label: "Zona sísmica", valor: "VI" },
-  { label: "Normativa", valor: "ACI 318-25" },
-];
-
-const STATS = [
-  { valor: "5,956", label: "vigas analizadas" },
-  { valor: "0.0187 OK", label: "deriva máxima" },
-  { valor: "87+", label: "scripts en producción" },
-];
-
-const SOFTWARE_LAB = [
-  { nombre: "TB Script PRO", desc: "Automatización despiece acero Revit" },
-  { nombre: "CivilControl Pro", desc: "Metrados y presupuestos automatizados" },
-  { nombre: "Titanium Hydro", desc: "Cálculo redes hidrosanitarias NEC-HS" },
-];
 
 export default function ConocenosPage() {
   return (
@@ -46,13 +29,13 @@ export default function ConocenosPage() {
           <div className="tb-glass-card" style={{ padding: "2rem" }}>
             <h2 style={{ fontSize: "1.15rem", fontWeight: 700, color: "#C9A84C", marginBottom: "1rem" }}>Misión</h2>
             <p style={{ fontSize: "0.95rem", color: "#E6EDF3", lineHeight: 1.75 }}>
-              Cerrar la brecha entre el modelado digital y la seguridad estructural de alto rendimiento, formando ingenieros capaces de resolver proyectos reales bajo normativa vigente, no ejercicios de aula.
+              {MISION}
             </p>
           </div>
           <div className="tb-glass-card" style={{ padding: "2rem" }}>
             <h2 style={{ fontSize: "1.15rem", fontWeight: 700, color: "#C9A84C", marginBottom: "1rem" }}>Visión</h2>
             <p style={{ fontSize: "0.95rem", color: "#E6EDF3", lineHeight: 1.75 }}>
-              Ser la referencia de formación en ingeniería estructural y BIM del Ecuador, con una comunidad de ingenieros de producción reconocidos por la calidad técnica de su trabajo.
+              {VISION}
             </p>
           </div>
         </div>
@@ -60,8 +43,8 @@ export default function ConocenosPage() {
         {/* Proyecto flagship */}
         <div className="tb-glass-card" style={{ padding: "2.5rem", marginBottom: "2rem" }}>
           <p style={{ fontSize: "0.68rem", fontFamily: "JetBrains Mono,monospace", color: "#C9A84C", letterSpacing: "0.1em", marginBottom: "0.75rem" }}>PROYECTO FLAGSHIP</p>
-          <h2 style={{ fontSize: "1.75rem", fontWeight: 800, color: "#FFFFFF", marginBottom: "1.5rem" }}>Edificio Titanium Quitumbe</h2>
-          <div className="grid grid-cols-2 lg:grid-cols-4" style={{ gap: "1.25rem" }}>
+          <h2 style={{ fontSize: "1.75rem", fontWeight: 800, color: "#FFFFFF", marginBottom: "1.5rem" }}>{empresa.proyectoFlagship.nombre}</h2>
+          <div className="grid grid-cols-2 lg:grid-cols-5" style={{ gap: "1.25rem" }}>
             {PROYECTO_STATS.map((s) => (
               <div key={s.label} style={{ padding: "1rem", borderRadius: "10px", background: "#161B22", border: "1px solid #21262D" }}>
                 <p style={{ fontSize: "0.65rem", color: "#8B949E", marginBottom: "0.35rem" }}>{s.label}</p>
@@ -84,10 +67,10 @@ export default function ConocenosPage() {
         {/* Software Lab */}
         <p style={{ fontSize: "0.68rem", fontFamily: "JetBrains Mono,monospace", color: "#C9A84C", letterSpacing: "0.1em", marginBottom: "1.25rem" }}>SOFTWARE LAB</p>
         <div className="grid grid-cols-1 md:grid-cols-3" style={{ gap: "1.25rem", marginBottom: "4rem" }}>
-          {SOFTWARE_LAB.map((s) => (
+          {softwareLab.map((s) => (
             <div key={s.nombre} className="tb-glass-card" style={{ padding: "1.5rem" }}>
               <h3 style={{ fontSize: "1rem", fontWeight: 700, color: "#FFFFFF", marginBottom: "0.5rem" }}>{s.nombre}</h3>
-              <p style={{ fontSize: "0.85rem", color: "#8B949E", lineHeight: 1.6 }}>{s.desc}</p>
+              <p style={{ fontSize: "0.85rem", color: "#8B949E", lineHeight: 1.6 }}>{s.descripcion}</p>
             </div>
           ))}
         </div>
@@ -95,7 +78,7 @@ export default function ConocenosPage() {
         {/* Redes sociales */}
         <div style={{ display: "flex", gap: "1rem", flexWrap: "wrap" }}>
           <a
-            href="https://tiktok.com/@titanium_building"
+            href={empresa.redes.tiktok}
             target="_blank"
             rel="noopener noreferrer"
             className="tb-glass-card"
@@ -104,7 +87,7 @@ export default function ConocenosPage() {
             TikTok @titanium_building
           </a>
           <a
-            href="https://youtube.com/@DCTitaniumBuilders"
+            href={empresa.redes.youtube}
             target="_blank"
             rel="noopener noreferrer"
             className="tb-glass-card"

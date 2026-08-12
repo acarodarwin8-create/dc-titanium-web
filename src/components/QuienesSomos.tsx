@@ -1,16 +1,4 @@
-const BULLETS = [
-  "Proyectos reales bajo ACI 318-25 y NEC-SE-DS",
-  "Herramientas de producción profesional",
-  "Scripts y automatización que ahorran horas de trabajo",
-  "Comunidad activa de ingenieros en Ecuador",
-];
-
-const METRICAS = [
-  { v: "+5", l: "AÑOS" },
-  { v: "+87", l: "SCRIPTS" },
-  { v: "+312", l: "ESTUDIANTES" },
-  { v: "+9", l: "PROYECTOS" },
-];
+import { QUIENES_SOMOS_BULLETS as BULLETS, QUIENES_SOMOS_METRICAS as METRICAS } from "@/content/empresa";
 
 function CheckDorado() {
   return (

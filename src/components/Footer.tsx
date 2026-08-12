@@ -1,19 +1,5 @@
 import { VisaIcon, MastercardIcon, PayPalIcon, TransferIcon, LockIcon } from "./PaymentIcons";
-
-const REDES = [
-  { nombre: "YouTube", href: "https://youtube.com/@DCTitaniumBuilders", path: "M23 12s0-3.6-.46-5.3a3 3 0 00-2.1-2.1C18.9 4 12 4 12 4s-6.9 0-8.44.6a3 3 0 00-2.1 2.1C1 8.4 1 12 1 12s0 3.6.46 5.3a3 3 0 002.1 2.1C5.1 20 12 20 12 20s6.9 0 8.44-.6a3 3 0 002.1-2.1C23 15.6 23 12 23 12zM10 15.5v-7l6 3.5-6 3.5z" },
-  { nombre: "Instagram", href: "https://instagram.com/dctitaniumbuilders", path: "M12 2.2c3.2 0 3.6 0 4.85.07 3.25.15 4.77 1.7 4.92 4.92.06 1.25.07 1.6.07 4.85s0 3.6-.07 4.85c-.15 3.2-1.66 4.77-4.92 4.92-1.25.06-1.6.07-4.85.07s-3.6 0-4.85-.07c-3.26-.15-4.77-1.72-4.92-4.92C2.16 15.6 2.15 15.25 2.15 12s0-3.6.08-4.85C2.38 3.94 3.9 2.38 7.15 2.27 8.4 2.21 8.75 2.2 12 2.2zM12 7a5 5 0 100 10 5 5 0 000-10zm0 8.2a3.2 3.2 0 110-6.4 3.2 3.2 0 010 6.4zm5.2-8.4a1.17 1.17 0 100-2.34 1.17 1.17 0 000 2.34z" },
-  { nombre: "LinkedIn", href: "https://linkedin.com/company/dctitaniumbuilders", path: "M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.85 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 110-4.12 2.06 2.06 0 010 4.12zM7.11 20.45H3.56V9h3.55v11.45z" },
-  { nombre: "TikTok", href: "https://tiktok.com/@titanium_building", path: "M16.6 2h-3.3v13.2a2.7 2.7 0 11-2.7-2.7c.24 0 .48.03.7.08V9.2a5.9 5.9 0 00-.7-.04A5.9 5.9 0 1016.6 15V8.3a8.2 8.2 0 004.9 1.6V6.6a4.9 4.9 0 01-4.9-4.6z" },
-];
-
-const COLUMNAS = [
-  { titulo: "Servicios", links: [{ l: "BIM Management", href: "#comunidad" }, { l: "Ingeniería Estructural", href: "#cursos" }, { l: "Automatización", href: "#comunidad" }] },
-  { titulo: "Software Lab", links: [{ l: "TB Script PRO", href: "#comunidad" }, { l: "CivilControl Pro", href: "#comunidad" }, { l: "Titanium Hydro", href: "#comunidad" }] },
-  { titulo: "Empresa", links: [{ l: "Nuestra Historia", href: "#conocenos" }, { l: "Equipo", href: "#conocenos" }, { l: "Portafolio", href: "#portafolio" }, { l: "Galería de Recursos", href: "#galeria" }, { l: "Contacto", href: "#contacto" }] },
-  { titulo: "Legal", links: [{ l: "Términos y Condiciones", href: "#" }, { l: "Política de Privacidad", href: "#" }, { l: "Política de Cookies", href: "#" }] },
-];
-const NORMATIVAS = ["ACI 318-25", "NEC-SE-DS", "NEC-HS", "INEN"];
+import { nombreCorto, descripcionCorta, anioCopyright, empresa, REDES_SOCIALES as REDES, FOOTER_COLUMNAS as COLUMNAS, FOOTER_NORMATIVAS as NORMATIVAS } from "@/content/empresa";
 
 export default function Footer() {
   return (
@@ -24,10 +10,10 @@ export default function Footer() {
           <div>
             <div style={{ display: "flex", alignItems: "center", gap: "0.75rem", marginBottom: "1.25rem" }}>
               <img src="/Logo_V8_Premium_Serio.png" alt="DC Titanium Builders" width={44} height={44} style={{ width: "44px", height: "44px", borderRadius: "50%", objectFit: "cover", border: "1px solid #D4AF72" }} />
-              <span style={{ fontWeight: 700, color: "white", fontSize: "1rem" }}>DC Titanium Builders</span>
+              <span style={{ fontWeight: 700, color: "white", fontSize: "1rem" }}>{nombreCorto}</span>
             </div>
             <p style={{ fontSize: "0.875rem", lineHeight: 1.8, color: "#6B7280", maxWidth: "380px" }}>
-              Plataforma educativa AEC: ingeniería estructural, modelado BIM y automatización — Quito, Ecuador.
+              {descripcionCorta}
             </p>
           </div>
 
@@ -93,7 +79,7 @@ export default function Footer() {
 
         {/* ROW 4 */}
         <div style={{ borderTop: "1px solid #1F2937", paddingTop: "1.5rem" }}>
-          <p style={{ fontSize: "0.8rem", color: "#4B5563" }}>2026 DC Titanium Builders S.A. — La ingeniería es nuestro lenguaje.</p>
+          <p style={{ fontSize: "0.8rem", color: "#4B5563" }}>{anioCopyright} {empresa.nombre} — {empresa.slogan}</p>
         </div>
       </div>
     </footer>

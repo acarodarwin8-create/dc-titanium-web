@@ -1,56 +1,11 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { COMUNIDAD_ITEMS as ITEMS } from "@/content/empresa";
 
 export const metadata: Metadata = {
   title: "Comunidad",
   description: "El ecosistema de ingenieros de elite de DC Titanium Builders.",
 };
-
-type Item = {
-  icono: string;
-  titulo: string;
-  descripcion: string;
-  dato: string;
-  cta: string;
-  href: string;
-  externo?: boolean;
-};
-
-const ITEMS: Item[] = [
-  {
-    icono: "📚",
-    titulo: "Biblioteca Premium",
-    descripcion: "Plantillas .RTE, Scripts Dynamo, Memorias de cálculo",
-    dato: "300+ recursos | Actualización mensual",
-    cta: "Acceder Gratis →",
-    href: "/comunidad/biblioteca",
-  },
-  {
-    icono: "💬",
-    titulo: "Foro Técnico",
-    descripcion: "Consultas estructurales, resolución entre pares",
-    dato: "+1,200 consultas resueltas",
-    cta: "Unirse al Foro →",
-    href: "/comunidad/foro",
-  },
-  {
-    icono: "🎓",
-    titulo: "Galería de Proyectos",
-    descripcion: "Proyectos reales de egresados DC Titanium",
-    dato: "Portafolio de alumnos",
-    cta: "Ver Galería →",
-    href: "/comunidad/galeria",
-  },
-  {
-    icono: "📺",
-    titulo: "Canal YouTube",
-    descripcion: "Tutoriales gratuitos semanales",
-    dato: "@DCTitaniumBuilders | +87 videos",
-    cta: "Suscribirse →",
-    href: "https://youtube.com/@DCTitaniumBuilders",
-    externo: true,
-  },
-];
 
 export default function ComunidadPage() {
   return (

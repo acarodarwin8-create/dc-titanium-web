@@ -4,15 +4,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCart } from "@/context/CartContext";
 import { MONEDAS, type Moneda } from "@/lib/currency";
+import { NAV_LINKS, empresa, whatsappHref } from "@/content/empresa";
 import SearchModal from "./SearchModal";
 import CartDrawer from "./CartDrawer";
-
-const NAV_LINKS = [
-  { label: "Programas & Masters", href: "/programas" },
-  { label: "Cursos por Software", href: "/cursos" },
-  { label: "Comunidad", href: "/comunidad" },
-  { label: "Conócenos", href: "/conocenos" },
-];
 
 function SearchIcon() {
   return (
@@ -76,8 +70,8 @@ export default function Navbar() {
               ))}
             </select>
             <div style={{ display: "flex", alignItems: "center", gap: "1.25rem" }}>
-              <a href="mailto:info@dctitanium.com" style={{ color: "#8B949E", textDecoration: "none" }}>info@dctitanium.com</a>
-              <a href="https://wa.me/593999999999" target="_blank" rel="noopener noreferrer" style={{ color: "#C9A84C", textDecoration: "none", fontWeight: 600 }}>WhatsApp</a>
+              <a href={"mailto:" + empresa.email} style={{ color: "#8B949E", textDecoration: "none" }}>{empresa.email}</a>
+              <a href={whatsappHref} target="_blank" rel="noopener noreferrer" style={{ color: "#C9A84C", textDecoration: "none", fontWeight: 600 }}>WhatsApp</a>
             </div>
           </div>
         </div>

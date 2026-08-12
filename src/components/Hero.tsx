@@ -3,6 +3,7 @@ import { useState } from "react";
 import Image from "next/image";
 import dynamic from "next/dynamic";
 import type { Capa } from "./BuildingCanvas3D";
+import { HERO_NORMATIVAS as NORMATIVAS, HERO_METRICAS as METRICAS, HERO_SOFTWARE_STACK as SOFTWARE, HERO_CAPAS as CAPAS } from "@/content/empresa";
 
 const BuildingCanvas3D = dynamic(() => import("./BuildingCanvas3D"), {
   ssr: false,
@@ -12,23 +13,6 @@ const BuildingCanvas3D = dynamic(() => import("./BuildingCanvas3D"), {
     </div>
   ),
 });
-
-const NORMATIVAS = ["ACI 318-25", "NEC-SE-DS", "AISC 360/341"];
-
-const METRICAS = [
-  { valor: "5,956", label: "vigas" },
-  { valor: "9", label: "pisos" },
-  { valor: "ACI 318-25", label: "normativa" },
-  { valor: "VI", label: "zona sísmica" },
-];
-
-const SOFTWARE = ["ETABS", "Revit", "Advance Steel", "Dynamo", "Python", "SAP2000"];
-
-const CAPAS: { id: Capa; icono: string; label: string }[] = [
-  { id: "analitico", icono: "📐", label: "Modelo Analítico" },
-  { id: "armado", icono: "🏗️", label: "Armado Rebar" },
-  { id: "bim", icono: "🏢", label: "BIM Final" },
-];
 
 export default function Hero() {
   const [capa, setCapa] = useState<Capa>("analitico");

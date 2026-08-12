@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { CURSOS } from "@/data/cursos";
-import { SCRIPTS } from "@/data/recursos";
+import { cursos } from "@/content/cursos";
+import { softwareLab } from "@/content/software";
 import { useCart } from "@/context/CartContext";
 import { formatPrice } from "@/lib/currency";
 
@@ -34,15 +34,16 @@ export default function SearchModal({ isOpen, onClose }: Props) {
   const q = query.trim().toLowerCase();
 
   const cursosFiltrados = useMemo(() => {
-    if (!q) return CURSOS.slice(0, 4);
-    return CURSOS.filter(
-      (c) => c.titulo.toLowerCase().includes(q) || c.software.some((s) => s.toLowerCase().includes(q)) || c.nivel.toLowerCase().includes(q)
+    const activos = cursos.filter((c) => c.activo);
+    if (!q) return activos.slice(0, 4);
+    return activos.filter(
+      (c) => c.nombre.toLowerCase().includes(q) || c.software.some((s) => s.toLowerCase().includes(q)) || c.nivel.toLowerCase().includes(q)
     );
   }, [q]);
 
   const scriptsFiltrados = useMemo(() => {
     if (!q) return [];
-    return SCRIPTS.filter((s) => s.nombre.toLowerCase().includes(q) || s.desc.toLowerCase().includes(q));
+    return softwareLab.filter((s) => s.nombre.toLowerCase().includes(q) || s.descripcion.toLowerCase().includes(q));
   }, [q]);
 
   if (!isOpen) return null;
@@ -92,7 +93,7 @@ export default function SearchModal({ isOpen, onClose }: Props) {
                   style={{ display: "flex", alignItems: "center", gap: "0.9rem", padding: "0.75rem", borderRadius: "10px", cursor: "pointer" }}
                   className="hover:bg-black/5"
                   onClick={() => {
-                    addItem(c);
+                    addItem({ id: c.id, titulo: c.nombre, precio: c.precio, software: c.software });
                     onClose();
                     toggleCart(true);
                   }}
@@ -101,7 +102,7 @@ export default function SearchModal({ isOpen, onClose }: Props) {
                     <span style={{ fontSize: "0.55rem", fontWeight: 800, color: "#D4AF72", fontFamily: "JetBrains Mono,monospace" }}>{c.software[0].slice(0, 4)}</span>
                   </div>
                   <div style={{ flex: 1, minWidth: 0 }}>
-                    <p style={{ fontSize: "0.85rem", fontWeight: 700, color: "#0B0C10" }}>{c.titulo}</p>
+                    <p style={{ fontSize: "0.85rem", fontWeight: 700, color: "#0B0C10" }}>{c.nombre}</p>
                     <p style={{ fontSize: "0.72rem", color: "#9CA3AF" }}>{c.nivel} — {c.software.join(" / ")}</p>
                   </div>
                   <span style={{ fontSize: "0.8rem", fontWeight: 800, color: "#B8952E", fontFamily: "JetBrains Mono,monospace" }}>{formatPrice(c.precio, moneda)}</span>
@@ -116,7 +117,7 @@ export default function SearchModal({ isOpen, onClose }: Props) {
               {scriptsFiltrados.map((s) => (
                 <div key={s.nombre} style={{ display: "flex", flexDirection: "column", padding: "0.75rem", borderRadius: "10px" }}>
                   <p style={{ fontSize: "0.85rem", fontWeight: 700, color: "#0B0C10" }}>{s.nombre}</p>
-                  <p style={{ fontSize: "0.75rem", color: "#9CA3AF" }}>{s.desc}</p>
+                  <p style={{ fontSize: "0.75rem", color: "#9CA3AF" }}>{s.descripcion}</p>
                 </div>
               ))}
             </>

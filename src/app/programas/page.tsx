@@ -1,73 +1,12 @@
 import Link from "next/link";
 import type { Metadata } from "next";
+import { programas, PROGRAMAS_STATS as STATS } from "@/content/programas";
+import { whatsappHref } from "@/content/empresa";
 
 export const metadata: Metadata = {
   title: "Programas de Especialización",
   description: "Rutas de formación completas con proyectos reales bajo normativa ACI 318-25 y NEC-SE-DS.",
 };
-
-type Programa = {
-  icono: string;
-  titulo: string;
-  normativa: string[];
-  software: string[];
-  duracion: string;
-  horas: string;
-  descripcion: string;
-  modulos: string;
-  lecciones: string;
-  precio: string;
-  href: string;
-};
-
-const PROGRAMAS: Programa[] = [
-  {
-    icono: "🏛️",
-    titulo: "Máster Ingeniería Estructural Sísmica",
-    normativa: ["ACI 318-25", "NEC-SE-DS"],
-    software: ["ETABS", "SAP2000", "SAFE"],
-    duracion: "6 meses",
-    horas: "240 horas",
-    descripcion: "Domina el diseño sísmico completo desde predimensionamiento hasta despiece automatizado",
-    modulos: "8 módulos",
-    lecciones: "48 lecciones",
-    precio: "desde $399 USD",
-    href: "/programas/master-estructural",
-  },
-  {
-    icono: "🔷",
-    titulo: "Especialización BIM 360",
-    normativa: ["Autodesk Certified", "ISO 19650"],
-    software: ["Revit", "Navisworks", "CYPE", "Speckle"],
-    duracion: "4 meses",
-    horas: "160 horas",
-    descripcion: "Gestión BIM federada desde modelado hasta coordinación de especialidades y entrega digital",
-    modulos: "6 módulos",
-    lecciones: "36 lecciones",
-    precio: "desde $299 USD",
-    href: "/programas/especializacion-bim",
-  },
-  {
-    icono: "⚡",
-    titulo: "Diplomado Automatización AEC",
-    normativa: ["Python", "C#", "Dynamo"],
-    software: ["Python", "Dynamo", "C#", "Revit API"],
-    duracion: "3 meses",
-    horas: "120 horas",
-    descripcion: "Automatiza planos, metrados y despiece con scripts profesionales de producción real",
-    modulos: "5 módulos",
-    lecciones: "30 lecciones",
-    precio: "desde $199 USD",
-    href: "/programas/diplomado-automatizacion",
-  },
-];
-
-const STATS = [
-  { valor: "312+", label: "Ingenieros" },
-  { valor: "95%", label: "Empleabilidad" },
-  { valor: "ACI 318-25", label: "Normativa" },
-  { valor: "100%", label: "Proyectos Reales" },
-];
 
 export default function ProgramasPage() {
   return (
@@ -92,17 +31,17 @@ export default function ProgramasPage() {
         <div className="tb-gold-line" style={{ marginBottom: "3.5rem" }} />
 
         <div className="grid grid-cols-1 md:grid-cols-3" style={{ gap: "1.5rem", marginBottom: "5rem" }}>
-          {PROGRAMAS.map((p) => (
-            <div key={p.titulo} className="tb-glass-card" style={{ padding: "1.75rem", display: "flex", flexDirection: "column" }}>
+          {programas.map((p) => (
+            <div key={p.id} className="tb-glass-card" style={{ padding: "1.75rem", display: "flex", flexDirection: "column" }}>
               <span style={{ fontSize: "2.25rem", marginBottom: "1rem" }}>{p.icono}</span>
 
               <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", marginBottom: "1rem" }}>
-                {p.normativa.map((n) => (
+                {p.normativas.map((n) => (
                   <span key={n} className="tb-badge-norm">{n}</span>
                 ))}
               </div>
 
-              <h3 style={{ fontSize: "1.15rem", fontWeight: 700, color: "#FFFFFF", marginBottom: "0.75rem", lineHeight: 1.35 }}>{p.titulo}</h3>
+              <h3 style={{ fontSize: "1.15rem", fontWeight: 700, color: "#FFFFFF", marginBottom: "0.75rem", lineHeight: 1.35 }}>{p.nombre}</h3>
 
               <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem", marginBottom: "1rem" }}>
                 {p.software.map((s) => (
@@ -110,15 +49,17 @@ export default function ProgramasPage() {
                 ))}
               </div>
 
-              <p style={{ fontSize: "0.78rem", color: "#8B949E", marginBottom: "1rem" }}>{p.duracion} | {p.horas}</p>
+              <p style={{ fontSize: "0.78rem", color: "#8B949E", marginBottom: "1rem" }}>{p.duracion} | {p.horas} horas</p>
 
-              <p style={{ fontSize: "0.88rem", color: "#E6EDF3", lineHeight: 1.65, marginBottom: "1.25rem" }}>{p.descripcion}</p>
+              <p style={{ fontSize: "0.88rem", color: "#E6EDF3", lineHeight: 1.65, marginBottom: "1rem" }}>{p.descripcion}</p>
 
-              <p style={{ fontSize: "0.75rem", color: "#8B949E", marginBottom: "1.5rem" }}>{p.modulos} | {p.lecciones}</p>
+              <p style={{ fontSize: "0.72rem", color: "#C9A84C", marginBottom: "1.25rem" }}>Proyecto: {p.proyecto}</p>
+
+              <p style={{ fontSize: "0.75rem", color: "#8B949E", marginBottom: "1.5rem" }}>{p.modulos} módulos | {p.lecciones} lecciones</p>
 
               <div style={{ marginTop: "auto" }}>
-                <p style={{ fontSize: "1.05rem", fontWeight: 800, color: "#C9A84C", fontFamily: "JetBrains Mono,monospace", marginBottom: "1rem" }}>{p.precio}</p>
-                <Link href={p.href} className="tb-btn-primary" style={{ textDecoration: "none", display: "block", textAlign: "center" }}>
+                <p style={{ fontSize: "1.05rem", fontWeight: 800, color: "#C9A84C", fontFamily: "JetBrains Mono,monospace", marginBottom: "1rem" }}>desde ${p.precio} USD</p>
+                <Link href={"/programas/" + p.slug} className="tb-btn-primary" style={{ textDecoration: "none", display: "block", textAlign: "center" }}>
                   Ver Temario Completo →
                 </Link>
               </div>
@@ -144,7 +85,7 @@ export default function ProgramasPage() {
         <div className="tb-glass-card" style={{ padding: "2.5rem", textAlign: "center" }}>
           <h2 style={{ fontSize: "1.5rem", fontWeight: 800, color: "#FFFFFF", marginBottom: "1.5rem" }}>¿No sabes qué programa elegir?</h2>
           <a
-            href="https://wa.me/593999999999"
+            href={whatsappHref}
             target="_blank"
             rel="noopener noreferrer"
             style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem", padding: "0.85rem 2rem", borderRadius: "999px", background: "#25D366", color: "white", fontWeight: 700, fontSize: "0.9rem", textDecoration: "none" }}

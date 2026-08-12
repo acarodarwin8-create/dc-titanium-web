@@ -1,8 +1,4 @@
-const BENEFICIOS = [
-  { titulo: "Grupos Profesionales", desc: "Inscríbete con 3+ colegas y obtén 15% de descuento grupal.", dato: "-15%" },
-  { titulo: "Paquete Completo", desc: "Lleva 2 o más cursos y accede a precio de paquete especial.", dato: "-30%" },
-  { titulo: "Alumni DC Titanium", desc: "Egresados obtienen 20% en todos los cursos siguientes.", dato: "-20%" },
-];
+import { DESCUENTOS_ITEMS as BENEFICIOS, whatsappHref } from "@/content/empresa";
 
 export default function Descuentos() {
   return (
@@ -38,7 +34,7 @@ export default function Descuentos() {
 
         <div style={{ display: "flex", justifyContent: "center" }}>
           <a
-            href="https://wa.me/593999999999"
+            href={whatsappHref}
             target="_blank"
             rel="noopener noreferrer"
             style={{ display: "inline-flex", alignItems: "center", gap: "0.6rem", padding: "0.95rem 2.25rem", borderRadius: "10px", background: "#25D366", color: "white", fontWeight: 700, fontSize: "0.9rem", textDecoration: "none", boxShadow: "0 4px 16px rgba(37,211,102,0.35)" }}

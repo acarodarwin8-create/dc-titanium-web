@@ -1,0 +1,18 @@
+/* TB Elite 10-Color Palette — referencia oficial de marca DC Titanium Builders.
+   Espejo de la paleta documentada en AGENTS.md. No se importa automaticamente
+   en globals.css: sirve como fuente de referencia para nuevos componentes. */
+
+:root {
+  --tb-gold-primary: #C9A84C;
+  --tb-gold-light: #E8C96A;
+  --tb-gold-dark: #8B6914;
+  --tb-obsidian: #0A0A0F;
+  --tb-slate-deep: #0D1117;
+  --tb-slate-mid: #161B22;
+  --tb-slate-light: #21262D;
+  --tb-titanium: #8B949E;
+  --tb-white-pure: #FFFFFF;
+  --tb-white-soft: #E6EDF3;
+
+  --tb-gradient-brand: linear-gradient(135deg, #C9A84C 0%, #E8C96A 50%, #C9A84C 100%);
+}

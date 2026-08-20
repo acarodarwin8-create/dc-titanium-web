@@ -1,8 +1,11 @@
 "use client";
 import { useState } from "react";
+import Link from "next/link";
 import { cursos, NIVEL_COLOR } from "@/content/cursos";
 import { useCart } from "@/context/CartContext";
 import { formatPrice } from "@/lib/currency";
+import { IMAGENES } from "@/lib/imagenes";
+import ImagenPlaceholder from "@/components/ui/ImagenPlaceholder";
 
 export default function CursosDestacados() {
   const [filtroNivel, setFiltroNivel] = useState("Todos");
@@ -54,6 +57,15 @@ export default function CursosDestacados() {
             const enCarrito = items.some((i) => i.id === c.id);
             return (
               <div key={c.id} className="card-glass-gold" style={{ background: "white", borderRadius: "12px", border: "1.5px solid #EEECE6", overflow: "hidden" }}>
+                <div style={{ position: "relative", width: "100%", height: "160px" }}>
+                  <ImagenPlaceholder
+                    src={IMAGENES.cursos[c.slug]}
+                    alt={c.nombre}
+                    fill
+                    className="object-cover"
+                    rutaInstruccion={`public/imagenes/cursos/${c.slug}.jpg`}
+                  />
+                </div>
                 <div style={{ background: "linear-gradient(135deg,#0B0C10,#1E293B)", padding: "2rem 1.5rem", position: "relative", minHeight: "120px", display: "flex", flexDirection: "column", justifyContent: "flex-end" }}>
                   {desc > 0 && (
                     <span style={{ position: "absolute", top: "1rem", right: "1rem", background: "#EF4444", color: "white", fontSize: "0.65rem", fontWeight: 700, padding: "0.2rem 0.5rem", borderRadius: "4px" }}>
@@ -78,7 +90,9 @@ export default function CursosDestacados() {
                     </span>
                     <span style={{ fontSize: "0.65rem", color: "#9CA3AF", fontFamily: "JetBrains Mono,monospace", alignSelf: "center" }}>{c.modalidad}</span>
                   </div>
-                  <h3 style={{ fontSize: "0.95rem", fontWeight: 700, color: "#111827", marginBottom: "0.5rem", lineHeight: 1.4 }}>{c.nombre}</h3>
+                  <Link href={`/cursos/${c.slug}`} style={{ textDecoration: "none" }}>
+                    <h3 style={{ fontSize: "0.95rem", fontWeight: 700, color: "#111827", marginBottom: "0.5rem", lineHeight: 1.4 }}>{c.nombre}</h3>
+                  </Link>
                   <p style={{ fontSize: "0.8rem", color: "#9CA3AF", marginBottom: "1rem", lineHeight: 1.5 }}>{c.descripcion}</p>
                   <div style={{ display: "flex", gap: "1rem", fontSize: "0.72rem", color: "#9CA3AF", fontFamily: "JetBrains Mono,monospace", paddingBottom: "1rem", borderBottom: "1px solid #F5F5F5", marginBottom: "1rem" }}>
                     <span>{c.rating} stars</span>
@@ -108,6 +122,12 @@ export default function CursosDestacados() {
                       {enCarrito ? "En el carrito" : "Agregar al Carrito"}
                     </button>
                   </div>
+                  <Link
+                    href={`/cursos/${c.slug}`}
+                    style={{ display: "block", textAlign: "center", marginTop: "0.75rem", fontSize: "0.78rem", fontWeight: 600, color: "#B8952E", textDecoration: "none" }}
+                  >
+                    Ver curso completo →
+                  </Link>
                 </div>
               </div>
             );

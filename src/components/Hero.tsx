@@ -7,6 +7,7 @@ import { HERO_NORMATIVAS as NORMATIVAS, HERO_METRICAS as METRICAS, HERO_SOFTWARE
 import { CURSO_MAS_POPULAR } from "@/content/cursos";
 import { programas } from "@/content/programas";
 import { SOFTWARE_ICONOS } from "./SoftwareIcons";
+import { IMAGENES } from "@/lib/imagenes";
 
 const BuildingCanvas3D = dynamic(() => import("./BuildingCanvas3D"), {
   ssr: false,
@@ -73,7 +74,7 @@ export default function Hero() {
             {s.tipo === "imagen" ? (
               <>
                 <Image
-                  src="/Gemini_Generated_Image_kq0x2ukq0x2ukq0x.png"
+                  src={IMAGENES.hero.slide1}
                   alt="DC Titanium Builders — la ingeniería del mañana, edificada hoy"
                   fill
                   priority

@@ -1,9 +1,10 @@
 "use client";
 import { useState } from "react";
+import { IMAGENES } from "@/lib/imagenes";
 
-const IMAGENES = [
-  { src: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600", label: "Edificio Titanium Quitumbe" },
-  { src: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=600", label: "Torre Residencial SMF" },
+const SLIDES_PORTAFOLIO = [
+  { src: IMAGENES.portafolio.titaniumQuitumbe.renderExterior1, label: "Edificio Titanium Quitumbe" },
+  { src: IMAGENES.portafolio.proyecto2.render1, label: "Torre Residencial SMF" },
 ];
 
 export default function Portafolio() {
@@ -35,20 +36,20 @@ export default function Portafolio() {
           {/* DERECHA — slider */}
           <div style={{ position: "relative" }}>
             <div style={{ position: "relative", borderRadius: "18px", overflow: "hidden", boxShadow: "0 20px 50px rgba(0,0,0,0.12)", border: "1px solid #F0EDE8" }}>
-              <img src={IMAGENES[activo].src} alt={IMAGENES[activo].label} style={{ width: "100%", height: "420px", objectFit: "cover", display: "block" }} />
+              <img src={SLIDES_PORTAFOLIO[activo].src} alt={SLIDES_PORTAFOLIO[activo].label} style={{ width: "100%", height: "420px", objectFit: "cover", display: "block" }} />
               <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg,transparent 60%,rgba(10,10,10,0.7) 100%)" }} />
-              <p style={{ position: "absolute", left: "1.5rem", bottom: "1.25rem", color: "white", fontWeight: 700, fontSize: "1rem" }}>{IMAGENES[activo].label}</p>
+              <p style={{ position: "absolute", left: "1.5rem", bottom: "1.25rem", color: "white", fontWeight: 700, fontSize: "1rem" }}>{SLIDES_PORTAFOLIO[activo].label}</p>
 
               <button
                 aria-label="Anterior"
-                onClick={() => setActivo((a) => (a - 1 + IMAGENES.length) % IMAGENES.length)}
+                onClick={() => setActivo((a) => (a - 1 + SLIDES_PORTAFOLIO.length) % SLIDES_PORTAFOLIO.length)}
                 style={{ position: "absolute", left: "1rem", top: "50%", transform: "translateY(-50%)", width: "38px", height: "38px", borderRadius: "50%", background: "rgba(255,255,255,0.9)", border: "none", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: "#0A0A0A" }}
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M15 18l-6-6 6-6" strokeLinecap="round" strokeLinejoin="round" /></svg>
               </button>
               <button
                 aria-label="Siguiente"
-                onClick={() => setActivo((a) => (a + 1) % IMAGENES.length)}
+                onClick={() => setActivo((a) => (a + 1) % SLIDES_PORTAFOLIO.length)}
                 style={{ position: "absolute", right: "1rem", top: "50%", transform: "translateY(-50%)", width: "38px", height: "38px", borderRadius: "50%", background: "rgba(255,255,255,0.9)", border: "none", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", color: "#0A0A0A" }}
               >
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M9 18l6-6-6-6" strokeLinecap="round" strokeLinejoin="round" /></svg>
@@ -56,7 +57,7 @@ export default function Portafolio() {
             </div>
 
             <div style={{ display: "flex", justifyContent: "center", gap: "0.5rem", marginTop: "1.25rem" }}>
-              {IMAGENES.map((img, i) => (
+              {SLIDES_PORTAFOLIO.map((img, i) => (
                 <button
                   key={img.src}
                   aria-label={"Ver " + img.label}

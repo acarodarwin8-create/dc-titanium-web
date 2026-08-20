@@ -1,3 +1,5 @@
+import { IMAGENES } from "@/lib/imagenes";
+
 export type GaleriaItem = {
   id: number;
   titulo: string;
@@ -15,7 +17,7 @@ export const GALERIA: GaleriaItem[] = [
     categoria: "Render 3D",
     tipo: "gratis",
     precio: 0,
-    imagen: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=700&q=80",
+    imagen: IMAGENES.recursos.renderTorre,
     software: ["RENDER"],
   },
   {
@@ -24,7 +26,7 @@ export const GALERIA: GaleriaItem[] = [
     categoria: "Modelo BIM",
     tipo: "gratis",
     precio: 0,
-    imagen: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=700&q=80",
+    imagen: IMAGENES.recursos.modeloBim,
     software: ["BIM"],
   },
   {
@@ -33,7 +35,7 @@ export const GALERIA: GaleriaItem[] = [
     categoria: "Render Interior",
     tipo: "gratis",
     precio: 0,
-    imagen: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=700&h=500&fit=crop&q=80",
+    imagen: IMAGENES.recursos.vistaInterior,
     software: ["RENDER"],
   },
   {
@@ -42,7 +44,7 @@ export const GALERIA: GaleriaItem[] = [
     categoria: "Paquete Premium",
     tipo: "pago",
     precio: 29,
-    imagen: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=700&h=500&fit=crop&q=80",
+    imagen: IMAGENES.recursos.setCompleto,
     software: ["BIM", "RENDER"],
   },
   {
@@ -51,7 +53,7 @@ export const GALERIA: GaleriaItem[] = [
     categoria: "Plantilla Revit",
     tipo: "pago",
     precio: 19,
-    imagen: "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=700&h=560&fit=crop&q=80",
+    imagen: IMAGENES.recursos.plantillaRevit,
     software: ["REVIT"],
   },
   {
@@ -60,7 +62,7 @@ export const GALERIA: GaleriaItem[] = [
     categoria: "Colección Renders",
     tipo: "pago",
     precio: 39,
-    imagen: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=700&h=560&fit=crop&q=80",
+    imagen: IMAGENES.recursos.coleccionRenders,
     software: ["RENDER"],
   },
 ];

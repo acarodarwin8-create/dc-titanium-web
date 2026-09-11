@@ -10,10 +10,12 @@ export default function PanelCompra({
   curso,
   imagen,
   rutaInstruccionImagen,
+  hotmartUrl,
 }: {
   curso: Curso;
   imagen: string;
   rutaInstruccionImagen: string;
+  hotmartUrl: string;
 }) {
   const { items, moneda, addItem, toggleCart } = useCart();
   const enCarrito = items.some((i) => i.id === curso.id);
@@ -29,7 +31,7 @@ export default function PanelCompra({
   }
 
   return (
-    <aside id="panel-compra" className="lg:sticky lg:top-28">
+    <aside id="panel-compra" className="lg:col-span-1 lg:sticky lg:top-24">
       <div className="tb-glass-card overflow-hidden">
         <div style={{ position: "relative", width: "100%", height: "200px" }}>
           <ImagenPlaceholder
@@ -43,7 +45,7 @@ export default function PanelCompra({
 
         <div className="p-6">
           {descuento > 0 && (
-            <span className="inline-block mb-3 text-xs font-bold text-[#0A0A0F] bg-[#C9A84C] px-2.5 py-1 rounded-full">
+            <span className="inline-block mb-3 text-xs font-bold text-[#0A0A0F] bg-[#C9A84C] px-2.5 py-1 rounded-full animate-pulse">
               -{descuento}% POR TIEMPO LIMITADO
             </span>
           )}
@@ -68,9 +70,18 @@ export default function PanelCompra({
             href={whatsappCurso}
             target="_blank"
             rel="noopener noreferrer"
-            className="block w-full mb-6 py-3 px-8 rounded-lg text-center font-semibold border border-[#C9A84C] text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-colors"
+            className="block w-full mb-3 py-3 px-8 rounded-lg text-center font-semibold border border-[#C9A84C] text-[#C9A84C] hover:bg-[#C9A84C]/10 transition-colors"
           >
             Reservar por WhatsApp
+          </a>
+
+          <a
+            href={hotmartUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="block w-full mb-6 text-center text-xs text-[#8B949E] hover:text-[#C9A84C] transition-colors underline underline-offset-2"
+          >
+            Comprar directo en Hotmart
           </a>
 
           <ul className="flex flex-col gap-2.5 mb-6 text-sm text-[#E6EDF3]">
@@ -96,7 +107,7 @@ export default function PanelCompra({
           </p>
 
           <p className="text-[10px] text-[#8B949E]/70 text-center tracking-wide">
-            Visa · Mastercard · Transferencia · Efectivo
+            Visa · Mastercard · PayPal · Transferencia · Efectivo
           </p>
         </div>
       </div>

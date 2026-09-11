@@ -1,164 +1,227 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap");
 @import "tailwindcss";
 
-:root {
-  --gold-primary: #C9A84C;
-  --gold-light: #E8C96A;
-  --gold-dark: #8B6914;
-  --obsidian: #0A0A0F;
-  --slate-deep: #0D1117;
-  --slate-mid: #161B22;
-  --slate-border: #21262D;
-  --titanium: #8B949E;
+::root {
+    /* ── PALETA HAUTE ELEGANCE v1.0 — DC Titanium Builders ── */
+    --gold-primary: #D4AF37;
+    /* Champagne Gold — acento principal */
+    --gold-light: #E2C87A;
+    /* Gold hover y estados activos */
+    --gold-dark: #8C6D46;
+    /* Bronze Patina — bordes y profundidad */
+    --obsidian: #070708;
+    /* Onyx Noir — fondo principal */
+    --slate-deep: #161619;
+    /* Graphite Silk — tarjetas */
+    --slate-mid: #161619;
+    /* Graphite Silk — contenedores */
+    --slate-border: #8C6D46;
+    /* Bronze Patina — separadores */
+    --titanium: #9E9A92;
+    /* Sterling Taupe — textos secundarios */
+    --royal-obsidian: #10141F;
+    /* Secciones analíticas */
+    --ivory-pearl: #F2F0EB;
+    /* Texto principal cálido */
+    --platinum-silver: #E8E8EC;
+    /* Acento metálico frío */
+    --emerald-heritage: #1B4332;
+    /* Éxito y validaciones */
+    --burgundy-velvet: #6B2D3C;
+    /* Badges exclusivos */
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body { background: #0A0A0F; color: #FFFFFF; font-family: "Inter", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
-img { max-width: 100%; display: block; }
-button { font-family: inherit; }
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
 
-::selection { background: rgba(201,168,76,0.25); }
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: #0D1117; }
-::-webkit-scrollbar-thumb { background: #C9A84C; border-radius: 2px; }
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background: #0A0A0F;
+    color: #FFFFFF;
+    font-family: "Inter", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+button {
+    font-family: inherit;
+}
+
+::selection {
+    background: rgba(201, 168, 76, 0.25);
+}
+
+::-webkit-scrollbar {
+    width: 4px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0D1117;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #C9A84C;
+    border-radius: 2px;
+}
 
 input:focus-visible,
 button:focus-visible,
 a:focus-visible,
 select:focus-visible,
 textarea:focus-visible {
-  outline: 2px solid rgb(214,186,134);
-  outline-offset: 2px;
-  border-radius: 4px;
+    outline: 2px solid rgb(214, 186, 134);
+    outline-offset: 2px;
+    border-radius: 4px;
 }
 
 /* Glassmorphism card estandar DC Titanium */
 .tb-glass-card {
-  background: rgba(13, 17, 23, 0.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(201, 168, 76, 0.2);
-  border-radius: 16px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: rgba(13, 17, 23, 0.85);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(201, 168, 76, 0.2);
+    border-radius: 16px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
 .tb-glass-card:hover {
-  border-color: rgba(201, 168, 76, 0.5);
-  box-shadow: 0 0 30px rgba(201, 168, 76, 0.08),
-              0 20px 60px rgba(0, 0, 0, 0.5);
-  transform: translateY(-2px);
+    border-color: rgba(201, 168, 76, 0.5);
+    box-shadow: 0 0 30px rgba(201, 168, 76, 0.08),
+        0 20px 60px rgba(0, 0, 0, 0.5);
+    transform: translateY(-2px);
 }
 
 /* Boton primario con brillo metalico */
 .tb-btn-primary {
-  background: linear-gradient(135deg, #C9A84C 0%, #E8C96A 50%, #C9A84C 100%);
-  background-size: 200% 200%;
-  color: #0A0A0F;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  font-size: 0.8rem;
-  padding: 0.75rem 2rem;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  transition: all 0.4s ease;
-  position: relative;
-  overflow: hidden;
+    background: linear-gradient(135deg, #C9A84C 0%, #E8C96A 50%, #C9A84C 100%);
+    background-size: 200% 200%;
+    color: #0A0A0F;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    padding: 0.75rem 2rem;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
 }
+
 .tb-btn-primary::before {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -75%;
-  width: 50%;
-  height: 200%;
-  background: rgba(255,255,255,0.3);
-  transform: skewX(-20deg);
-  transition: left 0.5s ease;
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -75%;
+    width: 50%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: skewX(-20deg);
+    transition: left 0.5s ease;
 }
-.tb-btn-primary:hover::before { left: 125%; }
+
+.tb-btn-primary:hover::before {
+    left: 125%;
+}
+
 .tb-btn-primary:hover {
-  background-position: right center;
-  box-shadow: 0 0 25px rgba(201, 168, 76, 0.4);
-  transform: translateY(-1px);
+    background-position: right center;
+    box-shadow: 0 0 25px rgba(201, 168, 76, 0.4);
+    transform: translateY(-1px);
 }
 
 /* Badge de normativa tecnica */
 .tb-badge-norm {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(201, 168, 76, 0.1);
-  border: 1px solid rgba(201, 168, 76, 0.3);
-  color: #C9A84C;
-  font-size: 0.7rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  padding: 4px 12px;
-  border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(201, 168, 76, 0.1);
+    border: 1px solid rgba(201, 168, 76, 0.3);
+    color: #C9A84C;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    padding: 4px 12px;
+    border-radius: 999px;
 }
 
 /* Glow line decorativo */
 .tb-gold-line {
-  height: 1px;
-  background: linear-gradient(90deg, transparent, #C9A84C, transparent);
-  opacity: 0.4;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #C9A84C, transparent);
+    opacity: 0.4;
 }
 
 .card-glass-gold {
-  box-shadow: 0 8px 30px rgba(214,186,134,0.08);
-  transition: transform 300ms ease, box-shadow 300ms ease;
-  transform-style: preserve-3d;
-  will-change: transform;
+    box-shadow: 0 8px 30px rgba(214, 186, 134, 0.08);
+    transition: transform 300ms ease, box-shadow 300ms ease;
+    transform-style: preserve-3d;
+    will-change: transform;
 }
+
 .card-glass-gold:hover {
-  transform: perspective(900px) rotateX(3deg) rotateY(-3deg) translateY(-6px);
-  box-shadow: 0 20px 45px rgba(214,186,134,0.2);
+    transform: perspective(900px) rotateX(3deg) rotateY(-3deg) translateY(-6px);
+    box-shadow: 0 20px 45px rgba(214, 186, 134, 0.2);
 }
 
 /* Profundidad 3d sutil para logos y visuales de marca */
 .tilt-3d-soft {
-  transition: transform 400ms ease, box-shadow 400ms ease;
-  transform-style: preserve-3d;
-  will-change: transform;
+    transition: transform 400ms ease, box-shadow 400ms ease;
+    transform-style: preserve-3d;
+    will-change: transform;
 }
+
 .tilt-3d-soft:hover {
-  transform: perspective(1400px) rotateX(1.5deg) rotateY(-1.5deg) scale(1.01);
+    transform: perspective(1400px) rotateX(1.5deg) rotateY(-1.5deg) scale(1.01);
 }
 
 .tilt-3d {
-  transition: transform 350ms ease, box-shadow 350ms ease;
-  transform-style: preserve-3d;
-  will-change: transform;
+    transition: transform 350ms ease, box-shadow 350ms ease;
+    transform-style: preserve-3d;
+    will-change: transform;
 }
+
 .tilt-3d:hover {
-  transform: perspective(1000px) rotateX(4deg) rotateY(-4deg) translateY(-4px);
-  box-shadow: 0 30px 60px rgba(11,12,16,0.4);
+    transform: perspective(1000px) rotateX(4deg) rotateY(-4deg) translateY(-4px);
+    box-shadow: 0 30px 60px rgba(11, 12, 16, 0.4);
 }
 
 .logo-3d {
-  transition: transform 350ms ease;
+    transition: transform 350ms ease;
 }
+
 .logo-3d:hover {
-  transform: perspective(600px) rotateY(12deg) scale(1.05);
+    transform: perspective(600px) rotateY(12deg) scale(1.05);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .card-glass-gold,
-  .tilt-3d-soft,
-  .tilt-3d,
-  .logo-3d,
-  .tb-glass-card,
-  .tb-btn-primary {
-    transition: none;
-  }
-  .card-glass-gold:hover,
-  .tilt-3d-soft:hover,
-  .tilt-3d:hover,
-  .logo-3d:hover,
-  .tb-glass-card:hover,
-  .tb-btn-primary:hover {
-    transform: none;
-  }
+
+    .card-glass-gold,
+    .tilt-3d-soft,
+    .tilt-3d,
+    .logo-3d,
+    .tb-glass-card,
+    .tb-btn-primary {
+        transition: none;
+    }
+
+    .card-glass-gold:hover,
+    .tilt-3d-soft:hover,
+    .tilt-3d:hover,
+    .logo-3d:hover,
+    .tb-glass-card:hover,
+    .tb-btn-primary:hover {
+        transform: none;
+    }
 }

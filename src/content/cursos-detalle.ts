@@ -21,6 +21,14 @@ export interface ModuloCurso {
   titulo: string;
   duracion: string;
   lecciones: LeccionCurso[];
+  recursos: string[];
+}
+
+export interface EntregableCurso {
+  nombre: string;
+  descripcion: string;
+  valor: number | null;
+  periodo?: string;
 }
 
 export interface InstructorCurso {
@@ -60,6 +68,7 @@ export interface CursoDetalle {
   modulos: ModuloCurso[];
   testimonios: TestimonioCurso[];
   preguntasFrecuentes: PreguntaCurso[];
+  entregables: EntregableCurso[];
   hotmartUrl: string;
 }
 
@@ -112,6 +121,7 @@ export const CURSOS_DETALLE: CursoDetalle[] = [
         id: 1,
         titulo: "Fundamentos del Diseño Sísmico NEC",
         duracion: "3h 20min",
+        recursos: ["espectro_nec.xlsx", "NEC-SE-DS_2015.pdf"],
         lecciones: [
           { id: 1, titulo: "Introducción al curso y recursos", duracion: "8min", tipo: "video", preview: true },
           { id: 2, titulo: "Normativa NEC-SE-DS: Zonas sísmicas Ecuador", duracion: "25min", tipo: "video", preview: true },
@@ -125,6 +135,7 @@ export const CURSOS_DETALLE: CursoDetalle[] = [
         id: 2,
         titulo: "Modelación del Pórtico SMF en ETABS",
         duracion: "6h 45min",
+        recursos: ["modelo_base.EDB", "grilla_config.py"],
         lecciones: [
           { id: 7, titulo: "Geometría y grillas del edificio", duracion: "35min", tipo: "video", preview: false },
           { id: 8, titulo: "Definición de materiales ACI 318-25", duracion: "25min", tipo: "video", preview: false },
@@ -138,6 +149,7 @@ export const CURSOS_DETALLE: CursoDetalle[] = [
         id: 3,
         titulo: "Verificación de Derivas y Resistencia",
         duracion: "5h 10min",
+        recursos: ["chequeo_drift.xlsx", "interaccion_PM.py"],
         lecciones: [
           { id: 13, titulo: "Derivas de piso: lectura e interpretación", duracion: "35min", tipo: "video", preview: false },
           { id: 14, titulo: "Chequeo drift máximo NEC (0.02)", duracion: "25min", tipo: "video", preview: false },
@@ -150,6 +162,7 @@ export const CURSOS_DETALLE: CursoDetalle[] = [
         id: 4,
         titulo: "Automatización Python + ETABS API",
         duracion: "8h 30min",
+        recursos: ["TB_extractor.py", "reporte_auto.py"],
         lecciones: [
           { id: 18, titulo: "Conexión Python-ETABS con comtypes", duracion: "30min", tipo: "video", preview: false },
           { id: 19, titulo: "Extracción de fuerzas con DatabaseTables", duracion: "45min", tipo: "video", preview: false },
@@ -163,6 +176,7 @@ export const CURSOS_DETALLE: CursoDetalle[] = [
         id: 5,
         titulo: "Entregables y Documentación Profesional",
         duracion: "4h 15min",
+        recursos: ["plantilla_memoria.docx", "planos_tipo.dwg"],
         lecciones: [
           { id: 24, titulo: "Memoria de cálculo estructural ACI", duracion: "45min", tipo: "video", preview: false },
           { id: 25, titulo: "Planos estructurales en AutoCAD", duracion: "60min", tipo: "video", preview: false },
@@ -181,6 +195,14 @@ export const CURSOS_DETALLE: CursoDetalle[] = [
       { pregunta: "¿El curso incluye el software ETABS?", respuesta: "No incluye licencia de ETABS. Puedes usar la versión de prueba de CSI o una licencia institucional." },
       { pregunta: "¿Cuánto tiempo tengo acceso al curso?", respuesta: "Acceso de por vida. Incluye todas las actualizaciones futuras sin costo adicional." },
       { pregunta: "¿Puedo obtener factura?", respuesta: "Sí. DC Titanium Builders S.A. emite factura electrónica válida en Ecuador." },
+    ],
+    entregables: [
+      { nombre: "Certificado Digital QR verificable", descripcion: "Certificado con código QR de verificación pública de autenticidad.", valor: 80 },
+      { nombre: "Pack Scripts Python ETABS", descripcion: "Colección de scripts de extracción y automatización usados en el curso.", valor: 200 },
+      { nombre: "Modelo ETABS SMF 9 pisos", descripcion: "Modelo completo del edificio de práctica listo para abrir y explorar.", valor: 150 },
+      { nombre: "Hojas de cálculo ACI 318-25 Excel", descripcion: "Plantillas de verificación de vigas, columnas y derivas.", valor: 100 },
+      { nombre: "Actualizaciones de por vida", descripcion: "Todo el contenido nuevo que se agregue al curso, sin costo adicional.", valor: null },
+      { nombre: "Acceso Discord VIP Titanium Engineers", descripcion: "Comunidad privada, soporte técnico y networking con otros ingenieros.", valor: 50, periodo: "año" },
     ],
     hotmartUrl: "https://hotmart.com/product/etabs-avanzado-dc-titanium",
   },
@@ -219,6 +241,7 @@ export const CURSOS_DETALLE: CursoDetalle[] = [
         id: 1,
         titulo: "Modelado Estructural en Revit",
         duracion: "4h 10min",
+        recursos: ["familia_viga_columna.rfa", "plantilla_revit.rte"],
         lecciones: [
           { id: 1, titulo: "Introducción al curso y recursos", duracion: "8min", tipo: "video", preview: true },
           { id: 2, titulo: "Familias paramétricas de vigas y columnas", duracion: "35min", tipo: "video", preview: true },
@@ -230,6 +253,7 @@ export const CURSOS_DETALLE: CursoDetalle[] = [
         id: 2,
         titulo: "Fundamentos de Dynamo",
         duracion: "5h 30min",
+        recursos: ["script_conteo.dyn", "guia_nodos_dynamo.pdf"],
         lecciones: [
           { id: 5, titulo: "Interfaz y nodos básicos de Dynamo", duracion: "30min", tipo: "video", preview: false },
           { id: 6, titulo: "Listas y estructuras de datos", duracion: "40min", tipo: "video", preview: false },
@@ -242,6 +266,7 @@ export const CURSOS_DETALLE: CursoDetalle[] = [
         id: 3,
         titulo: "Automatización de Despiece con TB Script PRO",
         duracion: "6h 20min",
+        recursos: ["TB_script_pro_config.py", "planilla_armado.xlsx"],
         lecciones: [
           { id: 10, titulo: "Instalación y configuración de TB Script PRO", duracion: "20min", tipo: "video", preview: false },
           { id: 11, titulo: "Despiece automático de vigas", duracion: "50min", tipo: "video", preview: false },
@@ -254,6 +279,7 @@ export const CURSOS_DETALLE: CursoDetalle[] = [
         id: 4,
         titulo: "Metrados y Coordinación BIM",
         duracion: "3h 45min",
+        recursos: ["metrados_acero.xlsx", "modelo_navisworks.nwd"],
         lecciones: [
           { id: 15, titulo: "Exportación de cuantificación de acero a Excel", duracion: "30min", tipo: "video", preview: false },
           { id: 16, titulo: "Detección de interferencias en Navisworks", duracion: "40min", tipo: "video", preview: false },
@@ -271,6 +297,14 @@ export const CURSOS_DETALLE: CursoDetalle[] = [
       { pregunta: "¿Funciona con versiones anteriores de Revit?", respuesta: "El curso está grabado en Revit 2026, pero los conceptos y scripts funcionan desde Revit 2022 en adelante." },
       { pregunta: "¿Cuánto tiempo tengo acceso al curso?", respuesta: "Acceso de por vida, incluyendo actualizaciones futuras del curso." },
       { pregunta: "¿Puedo obtener factura?", respuesta: "Sí. DC Titanium Builders S.A. emite factura electrónica válida en Ecuador." },
+    ],
+    entregables: [
+      { nombre: "Certificado Digital QR verificable", descripcion: "Certificado con código QR de verificación pública de autenticidad.", valor: 80 },
+      { nombre: "Pack TB Script PRO (licencia del curso)", descripcion: "Licencia de TB Script PRO durante la duración del curso.", valor: 150 },
+      { nombre: "Modelo Revit + ETABS vinculado 9 pisos", descripcion: "Modelo estructural coordinado del edificio de práctica.", valor: 120 },
+      { nombre: "Plantillas Dynamo de despiece", descripcion: "Scripts de despiece de acero listos para adaptar a tus proyectos.", valor: 90 },
+      { nombre: "Actualizaciones de por vida", descripcion: "Todo el contenido nuevo que se agregue al curso, sin costo adicional.", valor: null },
+      { nombre: "Acceso Discord VIP Titanium Engineers", descripcion: "Comunidad privada, soporte técnico y networking con otros ingenieros.", valor: 50, periodo: "año" },
     ],
     hotmartUrl: "https://hotmart.com/product/revit-estructural-dc-titanium",
   },
@@ -309,6 +343,7 @@ export const CURSOS_DETALLE: CursoDetalle[] = [
         id: 1,
         titulo: "Modelado de Estructuras Metálicas",
         duracion: "7h 00min",
+        recursos: ["modelo_nave_industrial.dwg", "plantilla_advance_steel.dwt"],
         lecciones: [
           { id: 1, titulo: "Introducción al curso y recursos", duracion: "8min", tipo: "video", preview: true },
           { id: 2, titulo: "Interfaz y flujo de trabajo de Advance Steel", duracion: "30min", tipo: "video", preview: true },
@@ -320,6 +355,7 @@ export const CURSOS_DETALLE: CursoDetalle[] = [
         id: 2,
         titulo: "Diseño de Conexiones AISC 360",
         duracion: "9h 15min",
+        recursos: ["calculo_conexiones.xlsx", "biblioteca_conexiones.stp"],
         lecciones: [
           { id: 5, titulo: "Conexiones apernadas a corte", duracion: "45min", tipo: "video", preview: false },
           { id: 6, titulo: "Conexiones a momento soldadas", duracion: "60min", tipo: "video", preview: false },
@@ -332,6 +368,7 @@ export const CURSOS_DETALLE: CursoDetalle[] = [
         id: 3,
         titulo: "Conexiones Sismorresistentes AISC 341",
         duracion: "8h 30min",
+        recursos: ["verificacion_RBS.xlsx", "detalle_zona_panel.dwg"],
         lecciones: [
           { id: 10, titulo: "Requisitos sísmicos para pórticos especiales (SMF)", duracion: "50min", tipo: "video", preview: false },
           { id: 11, titulo: "Conexiones precalificadas RBS", duracion: "55min", tipo: "video", preview: false },
@@ -343,6 +380,7 @@ export const CURSOS_DETALLE: CursoDetalle[] = [
         id: 4,
         titulo: "Planos de Taller y Fabricación",
         duracion: "5h 45min",
+        recursos: ["planos_taller.dwg", "lista_materiales_BOM.xlsx"],
         lecciones: [
           { id: 14, titulo: "Generación automática de planos de taller", duracion: "50min", tipo: "video", preview: false },
           { id: 15, titulo: "Listas de materiales (BOM) para fabricación", duracion: "35min", tipo: "video", preview: false },
@@ -361,6 +399,14 @@ export const CURSOS_DETALLE: CursoDetalle[] = [
       { pregunta: "¿El curso cubre AutoCAD también?", respuesta: "Se asumen conocimientos básicos de AutoCAD, ya que Advance Steel se ejecuta sobre esa plataforma." },
       { pregunta: "¿Cuánto tiempo tengo acceso al curso?", respuesta: "Acceso de por vida, incluyendo actualizaciones futuras del curso." },
       { pregunta: "¿Puedo obtener factura?", respuesta: "Sí. DC Titanium Builders S.A. emite factura electrónica válida en Ecuador." },
+    ],
+    entregables: [
+      { nombre: "Certificado Digital QR verificable", descripcion: "Certificado con código QR de verificación pública de autenticidad.", valor: 80 },
+      { nombre: "Biblioteca de conexiones AISC precalificadas", descripcion: "Conexiones apernadas y soldadas listas para reutilizar.", valor: 180 },
+      { nombre: "Modelo Advance Steel nave industrial completo", descripcion: "Modelo estructural del proyecto de práctica del curso.", valor: 140 },
+      { nombre: "Plantilla de planos de taller editables", descripcion: "Plantilla lista para generar planos de fabricación propios.", valor: 90 },
+      { nombre: "Actualizaciones de por vida", descripcion: "Todo el contenido nuevo que se agregue al curso, sin costo adicional.", valor: null },
+      { nombre: "Acceso Discord VIP Titanium Engineers", descripcion: "Comunidad privada, soporte técnico y networking con otros ingenieros.", valor: 50, periodo: "año" },
     ],
     hotmartUrl: "https://hotmart.com/product/advance-steel-dc-titanium",
   },
@@ -399,6 +445,7 @@ export const CURSOS_DETALLE: CursoDetalle[] = [
         id: 1,
         titulo: "Fundamentos de Análisis Dinámico",
         duracion: "4h 00min",
+        recursos: ["modelo_torre.s2k", "periodos_naturales.xlsx"],
         lecciones: [
           { id: 1, titulo: "Introducción al curso y recursos", duracion: "8min", tipo: "video", preview: true },
           { id: 2, titulo: "Grados de libertad dinámicos", duracion: "30min", tipo: "video", preview: true },
@@ -410,6 +457,7 @@ export const CURSOS_DETALLE: CursoDetalle[] = [
         id: 2,
         titulo: "Análisis de Espectro de Respuesta",
         duracion: "5h 45min",
+        recursos: ["espectro_nec_sap.xlsx", "combinaciones_modales.xlsx"],
         lecciones: [
           { id: 5, titulo: "Configuración del espectro NEC-SE-DS", duracion: "35min", tipo: "video", preview: false },
           { id: 6, titulo: "Combinación modal CQC y SRSS", duracion: "30min", tipo: "video", preview: false },
@@ -422,6 +470,7 @@ export const CURSOS_DETALLE: CursoDetalle[] = [
         id: 3,
         titulo: "Análisis Tiempo-Historia No Lineal",
         duracion: "6h 30min",
+        recursos: ["registros_sismicos.txt", "amortiguamiento_rayleigh.xlsx"],
         lecciones: [
           { id: 10, titulo: "Registros sísmicos y escalamiento", duracion: "40min", tipo: "video", preview: false },
           { id: 11, titulo: "No linealidad de materiales y disipadores", duracion: "50min", tipo: "video", preview: false },
@@ -433,6 +482,7 @@ export const CURSOS_DETALLE: CursoDetalle[] = [
         id: 4,
         titulo: "Reportes y Entregables Técnicos",
         duracion: "3h 20min",
+        recursos: ["reporte_dinamico.docx", "plantilla_resultados.xlsx"],
         lecciones: [
           { id: 14, titulo: "Interpretación de resultados para diseño", duracion: "35min", tipo: "video", preview: false },
           { id: 15, titulo: "Reporte técnico de análisis dinámico", duracion: "40min", tipo: "video", preview: false },
@@ -450,6 +500,14 @@ export const CURSOS_DETALLE: CursoDetalle[] = [
       { pregunta: "¿Incluye registros sísmicos reales?", respuesta: "Sí, se trabaja con registros sísmicos escalados según la normativa vigente." },
       { pregunta: "¿Cuánto tiempo tengo acceso al curso?", respuesta: "Acceso de por vida, incluyendo actualizaciones futuras del curso." },
       { pregunta: "¿Puedo obtener factura?", respuesta: "Sí. DC Titanium Builders S.A. emite factura electrónica válida en Ecuador." },
+    ],
+    entregables: [
+      { nombre: "Certificado Digital QR verificable", descripcion: "Certificado con código QR de verificación pública de autenticidad.", valor: 80 },
+      { nombre: "Pack de registros sísmicos escalados", descripcion: "Registros listos para usar en análisis tiempo-historia.", valor: 120 },
+      { nombre: "Modelo SAP2000 de análisis dinámico", descripcion: "Modelo de torre usado en las prácticas del curso.", valor: 130 },
+      { nombre: "Hojas de cálculo de espectros NEC", descripcion: "Plantillas para configurar espectros de diseño por zona sísmica.", valor: 90 },
+      { nombre: "Actualizaciones de por vida", descripcion: "Todo el contenido nuevo que se agregue al curso, sin costo adicional.", valor: null },
+      { nombre: "Acceso Discord VIP Titanium Engineers", descripcion: "Comunidad privada, soporte técnico y networking con otros ingenieros.", valor: 50, periodo: "año" },
     ],
     hotmartUrl: "https://hotmart.com/product/sap2000-dc-titanium",
   },
@@ -488,6 +546,7 @@ export const CURSOS_DETALLE: CursoDetalle[] = [
         id: 1,
         titulo: "Fundamentos de Programación para BIM",
         duracion: "3h 30min",
+        recursos: ["primer_script.dyn", "guia_python_bim.pdf"],
         lecciones: [
           { id: 1, titulo: "Introducción al curso y recursos", duracion: "8min", tipo: "video", preview: true },
           { id: 2, titulo: "Lógica de programación con nodos Dynamo", duracion: "30min", tipo: "video", preview: true },
@@ -499,6 +558,7 @@ export const CURSOS_DETALLE: CursoDetalle[] = [
         id: 2,
         titulo: "Dynamo + Revit API",
         duracion: "6h 15min",
+        recursos: ["script_revit_api.py", "actualizacion_parametros.dyn"],
         lecciones: [
           { id: 5, titulo: "Introducción a la Revit API", duracion: "40min", tipo: "video", preview: false },
           { id: 6, titulo: "Consultar y filtrar elementos del modelo", duracion: "45min", tipo: "video", preview: false },
@@ -511,6 +571,7 @@ export const CURSOS_DETALLE: CursoDetalle[] = [
         id: 3,
         titulo: "Automatización de Metrados y Reportes",
         duracion: "5h 20min",
+        recursos: ["metrados_auto.dyn", "vinculo_excel.xlsx"],
         lecciones: [
           { id: 10, titulo: "Cuantificación automática de materiales", duracion: "45min", tipo: "video", preview: false },
           { id: 11, titulo: "Vínculo con Excel para datos externos", duracion: "40min", tipo: "video", preview: false },
@@ -522,6 +583,7 @@ export const CURSOS_DETALLE: CursoDetalle[] = [
         id: 4,
         titulo: "Buenas Prácticas y Empaquetado",
         duracion: "2h 50min",
+        recursos: ["paquete_dynamo_ejemplo.zip", "guia_debugging.pdf"],
         lecciones: [
           { id: 14, titulo: "Depuración y manejo de errores", duracion: "35min", tipo: "video", preview: false },
           { id: 15, titulo: "Empaquetar scripts como paquetes reutilizables", duracion: "40min", tipo: "video", preview: false },
@@ -539,6 +601,14 @@ export const CURSOS_DETALLE: CursoDetalle[] = [
       { pregunta: "¿Es lo mismo que el curso de Revit + Dynamo?", respuesta: "No. Ese curso se enfoca en despiece de acero; este profundiza en automatización general con Python y la Revit API." },
       { pregunta: "¿Cuánto tiempo tengo acceso al curso?", respuesta: "Acceso de por vida, incluyendo actualizaciones futuras del curso." },
       { pregunta: "¿Puedo obtener factura?", respuesta: "Sí. DC Titanium Builders S.A. emite factura electrónica válida en Ecuador." },
+    ],
+    entregables: [
+      { nombre: "Certificado Digital QR verificable", descripcion: "Certificado con código QR de verificación pública de autenticidad.", valor: 80 },
+      { nombre: "Pack de scripts Dynamo + Python reutilizables", descripcion: "Colección de scripts de automatización listos para adaptar.", valor: 200 },
+      { nombre: "Familias paramétricas de ejemplo", descripcion: "Familias controladas por datos externos usadas en el curso.", valor: 90 },
+      { nombre: "Plantilla Excel de vínculo de datos", descripcion: "Plantilla para conectar Excel con parámetros de Revit vía Dynamo.", valor: 70 },
+      { nombre: "Actualizaciones de por vida", descripcion: "Todo el contenido nuevo que se agregue al curso, sin costo adicional.", valor: null },
+      { nombre: "Acceso Discord VIP Titanium Engineers", descripcion: "Comunidad privada, soporte técnico y networking con otros ingenieros.", valor: 50, periodo: "año" },
     ],
     hotmartUrl: "https://hotmart.com/product/python-dynamo-dc-titanium",
   },
@@ -577,6 +647,7 @@ export const CURSOS_DETALLE: CursoDetalle[] = [
         id: 1,
         titulo: "Interacción Suelo-Estructura",
         duracion: "3h 45min",
+        recursos: ["coeficiente_balasto.xlsx", "vinculo_etabs_safe.f2k"],
         lecciones: [
           { id: 1, titulo: "Introducción al curso y recursos", duracion: "8min", tipo: "video", preview: true },
           { id: 2, titulo: "Coeficiente de balasto y resortes de suelo", duracion: "35min", tipo: "video", preview: true },
@@ -588,6 +659,7 @@ export const CURSOS_DETALLE: CursoDetalle[] = [
         id: 2,
         titulo: "Diseño de Zapatas",
         duracion: "5h 20min",
+        recursos: ["diseno_zapatas.xlsx", "modelo_zapatas.edb"],
         lecciones: [
           { id: 5, titulo: "Zapatas aisladas: dimensionamiento", duracion: "40min", tipo: "video", preview: false },
           { id: 6, titulo: "Zapatas combinadas y excéntricas", duracion: "45min", tipo: "video", preview: false },
@@ -600,6 +672,7 @@ export const CURSOS_DETALLE: CursoDetalle[] = [
         id: 3,
         titulo: "Plateas de Cimentación",
         duracion: "6h 00min",
+        recursos: ["platea_design_strips.xlsx", "modelo_platea_9pisos.f2k"],
         lecciones: [
           { id: 10, titulo: "Modelado de plateas sobre resortes de suelo", duracion: "45min", tipo: "video", preview: false },
           { id: 11, titulo: "Diseño por franjas de diseño (design strips)", duracion: "50min", tipo: "video", preview: false },
@@ -611,6 +684,7 @@ export const CURSOS_DETALLE: CursoDetalle[] = [
         id: 4,
         titulo: "Entregables de Cimentación",
         duracion: "3h 10min",
+        recursos: ["planos_cimentacion.dwg", "memoria_cimentacion.docx"],
         lecciones: [
           { id: 14, titulo: "Vigas de cimentación y contrapisos", duracion: "35min", tipo: "video", preview: false },
           { id: 15, titulo: "Planos de cimentación con despiece", duracion: "45min", tipo: "video", preview: false },
@@ -628,6 +702,14 @@ export const CURSOS_DETALLE: CursoDetalle[] = [
       { pregunta: "¿El curso incluye el modelo de ETABS de práctica?", respuesta: "Sí, se entrega el modelo estructural del edificio de práctica para vincularlo a SAFE." },
       { pregunta: "¿Cuánto tiempo tengo acceso al curso?", respuesta: "Acceso de por vida, incluyendo actualizaciones futuras del curso." },
       { pregunta: "¿Puedo obtener factura?", respuesta: "Sí. DC Titanium Builders S.A. emite factura electrónica válida en Ecuador." },
+    ],
+    entregables: [
+      { nombre: "Certificado Digital QR verificable", descripcion: "Certificado con código QR de verificación pública de autenticidad.", valor: 80 },
+      { nombre: "Pack scripts ETABS-SAFE", descripcion: "Scripts de exportación de reacciones entre ETABS y SAFE.", valor: 150 },
+      { nombre: "Modelo ETABS-SAFE cimentación 9 pisos", descripcion: "Modelo completo de cimentación del edificio de práctica.", valor: 140 },
+      { nombre: "Hojas de cálculo de zapatas y plateas ACI", descripcion: "Plantillas de diseño de zapatas aisladas, combinadas y plateas.", valor: 100 },
+      { nombre: "Actualizaciones de por vida", descripcion: "Todo el contenido nuevo que se agregue al curso, sin costo adicional.", valor: null },
+      { nombre: "Acceso Discord VIP Titanium Engineers", descripcion: "Comunidad privada, soporte técnico y networking con otros ingenieros.", valor: 50, periodo: "año" },
     ],
     hotmartUrl: "https://hotmart.com/product/etabs-safe-dc-titanium",
   },

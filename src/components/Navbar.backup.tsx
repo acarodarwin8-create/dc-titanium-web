@@ -1,8 +1,8 @@
 // src/components/Navbar.tsx
 // ============================================================
-// Navbar DC Titanium — Haute Elegance v2.0 (Executive)
+// Navbar DC Titanium — Haute Elegance v1.0
 // Conectado 100% a variables CSS de globals.css
-// Efectos: Smart Auto-Hide, Glassmorphism, Glow Dorado
+// Efectos: glassmorphism, glow dorado, animaciones suaves
 // ============================================================
 "use client";
 
@@ -71,35 +71,19 @@ function MenuIcon({ open }: { open: boolean }) {
 export default function Navbar() {
     const pathname = usePathname();
     const [scrolled, setScrolled] = useState(false);
-    const [isVisible, setIsVisible] = useState(true);
-    const [lastScrollY, setLastScrollY] = useState(0);
     const [mobileOpen, setMobileOpen] = useState(false);
     const [searchOpen, setSearchOpen] = useState(false);
     const [hoveredLink, setHoveredLink] = useState<string | null>(null);
 
     const { items, moneda, setMoneda, toggleCart } = useCart();
 
-    // Lógica Smart Auto-Hide y Glassmorphism según Scroll
+    // Detecta scroll para activar glassmorphism
     useEffect(() => {
-        const handleScroll = () => {
-            const currentScrollY = window.scrollY;
-
-            // Detecta scroll para activar glassmorphism
-            setScrolled(currentScrollY > 20);
-
-            // Oculta la barra al bajar más de 80px / la muestra al subir
-            if (currentScrollY > lastScrollY && currentScrollY > 80) {
-                setIsVisible(false);
-            } else {
-                setIsVisible(true);
-            }
-
-            setLastScrollY(currentScrollY);
-        };
-
-        window.addEventListener("scroll", handleScroll, { passive: true });
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, [lastScrollY]);
+        const h = () => setScrolled(window.scrollY > 20);
+        h();
+        window.addEventListener("scroll", h, { passive: true });
+        return () => window.removeEventListener("scroll", h);
+    }, []);
 
     // Bloquea scroll del body cuando el menú móvil está abierto
     useEffect(() => {
@@ -124,17 +108,8 @@ export default function Navbar() {
 
     return (
         <>
-            <header
-                style={{
-                    position: "fixed",
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    zIndex: 100,
-                    transform: isVisible || mobileOpen ? "translateY(0)" : "translateY(-100%)",
-                    transition: "transform 0.35s cubic-bezier(0.4, 0, 0.2, 1)"
-                }}
-            >
+            <header style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100 }}>
+
                 {/* ── Top bar informativa ── */}
                 <div
                     className="hidden sm:block"
@@ -204,7 +179,7 @@ export default function Navbar() {
                                     e.currentTarget.style.textShadow = "none";
                                 }}
                             >
-                                WhatsApp Support
+                                WhatsApp
                             </a>
                         </div>
                     </div>

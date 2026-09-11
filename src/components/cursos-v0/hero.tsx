@@ -1,485 +1,427 @@
-// src/components/Navbar.tsx
+// src/components/cursos-v0/hero.tsx
 // ============================================================
-// Navbar DC Titanium — Haute Elegance v1.0
-// Conectado 100% a variables CSS de globals.css
-// Efectos: glassmorphism, glow dorado, animaciones suaves
+// Hero Masterclass App Grade — DC Titanium Builders v3.0
+// Estilo: Cyber-Engineering, Blueprint Mesh, Metallic Gold Glow
 // ============================================================
 "use client";
-import { useEffect, useState } from "react";
+
+import React, { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useCart } from "@/context/CartContext";
-import { MONEDAS, type Moneda } from "@/lib/currency";
-import { NAV_LINKS, empresa, whatsappHref } from "@/content/empresa";
-import SearchModal from "./SearchModal";
-import CartDrawer from "./CartDrawer";
+import type { Curso } from "@/content/cursos";
+import type { CursoDetalle } from "@/content/cursos-detalle";
+import { VideoModal } from "./video-modal";
 
-// ── Íconos SVG inline ────────────────────────────────────────
-function SearchIcon() {
+// ── Íconos Vectoriales Directos de Alta Precisión ───────────
+function IconStar() {
     return (
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" strokeWidth="2">
-            <circle cx="11" cy="11" r="7" />
-            <path d="M21 21l-4.3-4.3" strokeLinecap="round" />
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
         </svg>
     );
 }
 
-function CartIcon() {
+function IconPlay() {
     return (
-        <svg width="19" height="19" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" strokeWidth="1.8">
-            <path d="M6 6h15l-1.5 9h-12z" strokeLinecap="round" strokeLinejoin="round" />
-            <circle cx="9" cy="20" r="1" fill="currentColor" />
-            <circle cx="18" cy="20" r="1" fill="currentColor" />
-            <path d="M6 6L5 3H2" strokeLinecap="round" />
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M8 5v14l11-7z" />
         </svg>
     );
 }
 
-function MenuIcon({ open }: { open: boolean }) {
+function IconVerified() {
     return (
-        <div style={{
-            width: "20px", display: "flex", flexDirection: "column",
-            justifyContent: "center", alignItems: "center", gap: "5px"
-        }}>
-            <span style={{
-                width: "20px", height: "2px",
-                background: "var(--ivory-pearl)",
-                transition: "all 0.3s cubic-bezier(0.4,0,0.2,1)",
-                transform: open ? "translateY(7px) rotate(45deg)" : "none",
-                display: "block",
-            }} />
-            <span style={{
-                width: "20px", height: "2px",
-                background: "var(--ivory-pearl)",
-                transition: "all 0.3s cubic-bezier(0.4,0,0.2,1)",
-                opacity: open ? 0 : 1,
-                display: "block",
-            }} />
-            <span style={{
-                width: "20px", height: "2px",
-                background: "var(--ivory-pearl)",
-                transition: "all 0.3s cubic-bezier(0.4,0,0.2,1)",
-                transform: open ? "translateY(-7px) rotate(-45deg)" : "none",
-                display: "block",
-            }} />
-        </div>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#10B981" strokeWidth="2.5" strokeLinecap="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+            <polyline points="22 4 12 14.01 9 11.01" />
+        </svg>
     );
 }
 
-// ── Componente principal ─────────────────────────────────────
-export default function Navbar() {
-    const pathname = usePathname();
-    const [scrolled, setScrolled] = useState(false);
-    const [mobileOpen, setMobileOpen] = useState(false);
-    const [searchOpen, setSearchOpen] = useState(false);
-    const [hoveredLink, setHoveredLink] = useState<string | null>(null);
+function IconDownload() {
+    return (
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="7 10 12 15 17 10" />
+            <line x1="12" y1="15" x2="12" y2="3" />
+        </svg>
+    );
+}
 
-    const { items, moneda, setMoneda, toggleCart } = useCart();
+function IconShare() {
+    return (
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+            <circle cx="18" cy="5" r="3" />
+            <circle cx="6" cy="12" r="3" />
+            <circle cx="18" cy="19" r="3" />
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+        </svg>
+    );
+}
 
-    // Detecta scroll para activar glassmorphism
-    useEffect(() => {
-        const h = () => setScrolled(window.scrollY > 20);
-        h();
-        window.addEventListener("scroll", h, { passive: true });
-        return () => window.removeEventListener("scroll", h);
-    }, []);
+interface HeroProps {
+    curso: Curso;
+    detalle: CursoDetalle;
+}
 
-    // Bloquea scroll del body cuando el menú móvil está abierto
-    useEffect(() => {
-        document.body.style.overflow = mobileOpen ? "hidden" : "";
-        return () => { document.body.style.overflow = ""; };
-    }, [mobileOpen]);
+export default function Hero({ curso, detalle }: HeroProps) {
+    const [isVideoOpen, setIsVideoOpen] = useState(false);
+    const [copied, setCopied] = useState(false);
 
-    // Atajo de teclado Ctrl+K para abrir búsqueda
-    useEffect(() => {
-        const onKey = (e: KeyboardEvent) => {
-            if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") {
-                e.preventDefault();
-                setSearchOpen(true);
-            }
-        };
-        window.addEventListener("keydown", onKey);
-        return () => window.removeEventListener("keydown", onKey);
-    }, []);
+    const c = curso as Record<string, any>;
+    const d = detalle as Record<string, any>;
 
-    const isActive = (href: string) =>
-        pathname === href || pathname.startsWith(href + "/");
+    const handleShare = () => {
+        if (typeof window !== "undefined") {
+            navigator.clipboard.writeText(window.location.href);
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2200);
+        }
+    };
+
+    const handleBrochureDownload = () => {
+        alert(`Descargando Ficha Técnica Ejecutiva (PDF): ${c.nombre || "Programa Especializado"}`);
+    };
 
     return (
         <>
-            <header style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100 }}>
-
-                {/* ── Top bar informativa ── */}
+            <section
+                style={{
+                    position: "relative",
+                    background: "#070708",
+                    backgroundImage: `
+            radial-gradient(circle at 15% 10%, rgba(212, 175, 55, 0.18) 0%, transparent 45%),
+            radial-gradient(circle at 85% 90%, rgba(16, 185, 129, 0.08) 0%, transparent 40%),
+            linear-gradient(to right, rgba(212, 175, 55, 0.03) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(212, 175, 55, 0.03) 1px, transparent 1px)
+          `,
+                    backgroundSize: "100% 100%, 100% 100%, 36px 36px, 36px 36px",
+                    borderBottom: "1px solid rgba(212, 175, 55, 0.25)",
+                    paddingTop: "2.2rem",
+                    paddingBottom: "4.5rem",
+                    overflow: "hidden",
+                }}
+            >
+                {/* Haz fotónico ambiental */}
                 <div
-                    className="hidden sm:block"
+                    aria-hidden
                     style={{
-                        background: "var(--obsidian)",
-                        color: "var(--titanium)",
-                        padding: "0.4rem 2rem",
-                        borderBottom: "1px solid rgba(140,109,70,0.25)",
-                        fontSize: "0.72rem",
+                        position: "absolute",
+                        top: "-120px",
+                        left: "25%",
+                        width: "700px",
+                        height: "350px",
+                        background: "radial-gradient(ellipse at center, rgba(212, 175, 55, 0.15), transparent 70%)",
+                        filter: "blur(60px)",
+                        pointerEvents: "none",
                     }}
-                >
-                    <div style={{
-                        maxWidth: "1280px", margin: "0 auto",
-                        display: "flex", alignItems: "center",
-                        justifyContent: "space-between",
-                    }}>
-                        {/* Selector de moneda */}
-                        <select
-                            value={moneda}
-                            onChange={(e) => setMoneda(e.target.value as Moneda)}
-                            aria-label="Seleccionar moneda"
-                            style={{
-                                background: "transparent",
-                                color: "var(--titanium)",
-                                border: "none", outline: "none",
-                                fontSize: "0.72rem", cursor: "pointer",
-                            }}
-                        >
-                            {MONEDAS.map((m) => (
-                                <option key={m} value={m}
-                                    style={{ background: "var(--slate-deep)", color: "var(--ivory-pearl)" }}>
-                                    {m}
-                                </option>
-                            ))}
-                        </select>
+                />
 
-                        {/* Contacto */}
-                        <div style={{ display: "flex", alignItems: "center", gap: "1.25rem" }}>
-                            <a href={"mailto:" + empresa.email}
-                                style={{
-                                    color: "var(--titanium)", textDecoration: "none",
-                                    transition: "color 0.2s"
-                                }}
-                                onMouseEnter={e => e.currentTarget.style.color = "var(--ivory-pearl)"}
-                                onMouseLeave={e => e.currentTarget.style.color = "var(--titanium)"}
-                            >
-                                {empresa.email}
-                            </a>
+                <div style={{ maxWidth: "1280px", margin: "0 auto", position: "relative", zIndex: 2 }} className="px-4 md:px-8">
+                    <div className="lg:grid lg:grid-cols-3 lg:gap-12">
+                        <div className="lg:col-span-2">
 
-                            <a
-                                href={whatsappHref}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                style={{
-                                    color: "var(--gold-primary)",
-                                    textDecoration: "none",
-                                    fontWeight: 600,
-                                    transition: "color 0.2s, text-shadow 0.2s",
-                                }}
-                                onMouseEnter={e => {
-                                    e.currentTarget.style.color = "var(--gold-light)";
-                                    e.currentTarget.style.textShadow = "0 0 12px rgba(212,175,55,0.5)";
-                                }}
-                                onMouseLeave={e => {
-                                    e.currentTarget.style.color = "var(--gold-primary)";
-                                    e.currentTarget.style.textShadow = "none";
-                                }}
-                            >
-                                WhatsApp
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                {/* ── Navbar principal ── */}
-                <div
-                    className={scrolled || mobileOpen ? "backdrop-blur-xl" : ""}
-                    style={{
-                        background: scrolled || mobileOpen
-                            ? "rgba(7,7,8,0.92)"
-                            : "transparent",
-                        borderBottom: scrolled || mobileOpen
-                            ? "1px solid rgba(140,109,70,0.2)"
-                            : "1px solid transparent",
-                        boxShadow: scrolled || mobileOpen
-                            ? "0 8px 32px rgba(0,0,0,0.4), 0 1px 0 rgba(212,175,55,0.05)"
-                            : "none",
-                        transition: "background 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease",
-                    }}
-                >
-                    <div style={{
-                        maxWidth: "1280px", margin: "0 auto", padding: "0 2rem",
-                        height: scrolled ? "64px" : "72px",
-                        display: "flex", alignItems: "center",
-                        justifyContent: "space-between",
-                        transition: "height 0.3s ease",
-                    }}>
-
-                        {/* ── Logo ── */}
-                        <Link href="/" style={{
-                            textDecoration: "none",
-                            display: "flex", alignItems: "center", gap: "0.75rem"
-                        }}>
-                            <div style={{
-                                position: "relative",
-                                transition: "filter 0.3s ease",
-                            }}
-                                onMouseEnter={e => {
-                                    (e.currentTarget as HTMLElement).style.filter =
-                                        "drop-shadow(0 0 12px rgba(212,175,55,0.6))";
-                                }}
-                                onMouseLeave={e => {
-                                    (e.currentTarget as HTMLElement).style.filter = "none";
-                                }}
-                            >
-                                <img
-                                    src="/Logo_V8_Premium_Serio.png"
-                                    alt="DC Titanium Builders"
-                                    className="logo-3d"
+                            {/* Breadcrumb Táctico */}
+                            <div style={{ marginBottom: "1.25rem" }}>
+                                <nav
                                     style={{
-                                        width: "48px", height: "48px",
-                                        borderRadius: "50%", objectFit: "cover",
-                                        border: "1.5px solid var(--gold-primary)",
-                                        flexShrink: 0,
-                                    }}
-                                />
-                            </div>
-                            <span
-                                className="hidden sm:inline"
-                                style={{
-                                    fontWeight: 700, fontSize: "1.02rem",
-                                    color: "var(--ivory-pearl)",
-                                    letterSpacing: "-0.02em",
-                                }}
-                            >
-                                DC Titanium{" "}
-                                <span style={{ color: "var(--gold-primary)" }}>Builders</span>
-                            </span>
-                        </Link>
-
-                        {/* ── Links de navegación desktop ── */}
-                        <nav className="hidden lg:flex"
-                            style={{ alignItems: "center", gap: "1.75rem", display: "flex" }}>
-                            {NAV_LINKS.map((link) => {
-                                const active = isActive(link.href);
-                                const hovered = hoveredLink === link.href;
-                                return (
-                                    <Link
-                                        key={link.href}
-                                        href={link.href}
-                                        onMouseEnter={() => setHoveredLink(link.href)}
-                                        onMouseLeave={() => setHoveredLink(null)}
-                                        style={{
-                                            fontSize: "0.82rem",
-                                            fontWeight: 500,
-                                            whiteSpace: "nowrap",
-                                            textDecoration: "none",
-                                            padding: "0.5rem 0",
-                                            color: active
-                                                ? "var(--gold-primary)"
-                                                : hovered
-                                                    ? "var(--ivory-pearl)"
-                                                    : "var(--titanium)",
-                                            borderBottom: active
-                                                ? "2px solid var(--gold-primary)"
-                                                : "2px solid transparent",
-                                            textShadow: active
-                                                ? "0 0 20px rgba(212,175,55,0.4)"
-                                                : "none",
-                                            transition: "color 0.2s ease, text-shadow 0.2s ease, border-color 0.2s ease",
-                                        }}
-                                    >
-                                        {link.label}
-                                    </Link>
-                                );
-                            })}
-                        </nav>
-
-                        {/* ── Acciones: buscar, carrito, CTA ── */}
-                        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-
-                            {/* Botón buscar */}
-                            <button
-                                aria-label="Buscar (Ctrl+K)"
-                                onClick={() => setSearchOpen(true)}
-                                className="hidden sm:flex"
-                                style={{
-                                    width: "40px", height: "40px",
-                                    borderRadius: "50%", border: "none",
-                                    background: "transparent",
-                                    alignItems: "center", justifyContent: "center",
-                                    cursor: "pointer",
-                                    color: "var(--titanium)",
-                                    transition: "color 0.2s, background 0.2s",
-                                }}
-                                onMouseEnter={e => {
-                                    e.currentTarget.style.color = "var(--gold-primary)";
-                                    e.currentTarget.style.background = "rgba(212,175,55,0.08)";
-                                }}
-                                onMouseLeave={e => {
-                                    e.currentTarget.style.color = "var(--titanium)";
-                                    e.currentTarget.style.background = "transparent";
-                                }}
-                            >
-                                <SearchIcon />
-                            </button>
-
-                            {/* Botón carrito con badge contador */}
-                            <button
-                                aria-label="Abrir carrito"
-                                onClick={() => toggleCart(true)}
-                                style={{
-                                    position: "relative",
-                                    width: "40px", height: "40px",
-                                    borderRadius: "50%", border: "none",
-                                    background: "transparent",
-                                    display: "flex", alignItems: "center", justifyContent: "center",
-                                    cursor: "pointer",
-                                    color: "var(--titanium)",
-                                    transition: "color 0.2s, background 0.2s",
-                                }}
-                                onMouseEnter={e => {
-                                    e.currentTarget.style.color = "var(--gold-primary)";
-                                    e.currentTarget.style.background = "rgba(212,175,55,0.08)";
-                                }}
-                                onMouseLeave={e => {
-                                    e.currentTarget.style.color = "var(--titanium)";
-                                    e.currentTarget.style.background = "transparent";
-                                }}
-                            >
-                                <CartIcon />
-                                {items.length > 0 && (
-                                    <span style={{
-                                        position: "absolute", top: "2px", right: "2px",
-                                        minWidth: "17px", height: "17px",
-                                        borderRadius: "999px",
-                                        background: "linear-gradient(135deg, var(--gold-primary), var(--gold-light))",
-                                        color: "var(--obsidian)",
-                                        fontSize: "0.62rem", fontWeight: 800,
-                                        display: "flex", alignItems: "center",
-                                        justifyContent: "center", padding: "0 3px",
-                                        boxShadow: "0 0 8px rgba(212,175,55,0.5)",
-                                    }}>
-                                        {items.length}
-                                    </span>
-                                )}
-                            </button>
-
-                            {/* Botón CTA principal — Inscribirse */}
-                            <a
-                                href="#contacto"
-                                className="hidden md:inline-block"
-                                style={{
-                                    padding: "0.6rem 1.4rem",
-                                    borderRadius: "8px",
-                                    background: "linear-gradient(135deg, var(--gold-primary), var(--gold-light))",
-                                    color: "var(--obsidian)",
-                                    fontWeight: 700, fontSize: "0.85rem",
-                                    textDecoration: "none",
-                                    marginLeft: "0.25rem",
-                                    transition: "box-shadow 0.3s ease, transform 0.2s ease",
-                                    boxShadow: "0 0 0 rgba(212,175,55,0)",
-                                }}
-                                onMouseEnter={e => {
-                                    e.currentTarget.style.boxShadow = "0 0 20px rgba(212,175,55,0.4), 0 4px 12px rgba(0,0,0,0.3)";
-                                    e.currentTarget.style.transform = "translateY(-1px)";
-                                }}
-                                onMouseLeave={e => {
-                                    e.currentTarget.style.boxShadow = "0 0 0 rgba(212,175,55,0)";
-                                    e.currentTarget.style.transform = "translateY(0)";
-                                }}
-                            >
-                                Inscribirse
-                            </a>
-
-                            {/* Botón menú hamburguesa móvil */}
-                            <button
-                                aria-label="Abrir menú"
-                                onClick={() => setMobileOpen((v) => !v)}
-                                className="flex lg:hidden"
-                                style={{
-                                    width: "40px", height: "40px",
-                                    background: "transparent", border: "none",
-                                    cursor: "pointer",
-                                    display: "flex", alignItems: "center", justifyContent: "center",
-                                }}
-                            >
-                                <MenuIcon open={mobileOpen} />
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                {/* ── Menú móvil ── */}
-                {mobileOpen && (
-                    <div
-                        className="flex lg:hidden"
-                        style={{
-                            borderTop: "1px solid rgba(140,109,70,0.2)",
-                            background: "rgba(7,7,8,0.97)",
-                            backdropFilter: "blur(20px)",
-                            padding: "1.25rem 2rem 2rem",
-                            flexDirection: "column",
-                            gap: "0.25rem",
-                            maxHeight: "calc(100vh - 72px)",
-                            overflowY: "auto",
-                        }}
-                    >
-                        {NAV_LINKS.map((link) => {
-                            const active = isActive(link.href);
-                            return (
-                                <Link
-                                    key={link.href}
-                                    href={link.href}
-                                    onClick={() => setMobileOpen(false)}
-                                    style={{
-                                        display: "flex", alignItems: "center",
-                                        justifyContent: "space-between",
-                                        padding: "0.85rem 0", fontSize: "1rem",
-                                        fontWeight: 500,
-                                        color: active ? "var(--gold-primary)" : "var(--ivory-pearl)",
-                                        textDecoration: "none",
-                                        borderBottom: "1px solid rgba(140,109,70,0.15)",
-                                        transition: "color 0.2s",
+                                        display: "inline-flex",
+                                        alignItems: "center",
+                                        gap: "0.55rem",
+                                        fontSize: "0.74rem",
+                                        fontFamily: "JetBrains Mono, monospace",
+                                        color: "#9E9A92",
+                                        background: "rgba(18, 18, 22, 0.85)",
+                                        padding: "0.38rem 0.95rem",
+                                        borderRadius: "8px",
+                                        border: "1px solid rgba(212, 175, 55, 0.2)",
+                                        boxShadow: "0 4px 15px rgba(0,0,0,0.5)",
+                                        backdropFilter: "blur(12px)",
                                     }}
                                 >
-                                    {link.label}
-                                </Link>
-                            );
-                        })}
+                                    <Link href="/" style={{ color: "#9E9A92", textDecoration: "none", transition: "color 0.2s" }}>
+                                        Inicio
+                                    </Link>
+                                    <span style={{ color: "rgba(212,175,55,0.4)" }}>/</span>
+                                    <Link href="/cursos" style={{ color: "#9E9A92", textDecoration: "none", transition: "color 0.2s" }}>
+                                        Cursos & Masters
+                                    </Link>
+                                    <span style={{ color: "rgba(212,175,55,0.4)" }}>/</span>
+                                    <span style={{ color: "#D4AF37", fontWeight: 700 }}>
+                                        {c.categoria || "Especialización BIM & Estructuras"}
+                                    </span>
+                                </nav>
+                            </div>
 
-                        <button
-                            onClick={() => { setMobileOpen(false); setSearchOpen(true); }}
-                            style={{
-                                display: "flex", alignItems: "center", gap: "0.6rem",
-                                padding: "0.85rem 0", fontSize: "1rem", fontWeight: 500,
-                                color: "var(--ivory-pearl)",
-                                background: "none", border: "none",
-                                textAlign: "left", cursor: "pointer",
-                            }}
-                        >
-                            <SearchIcon /> Buscar
-                        </button>
+                            {/* Badges de Certificación y Nivel Técnico */}
+                            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.65rem", marginBottom: "1.5rem" }}>
+                                <span
+                                    style={{
+                                        display: "inline-flex",
+                                        alignItems: "center",
+                                        gap: "0.45rem",
+                                        padding: "0.38rem 0.9rem",
+                                        borderRadius: "8px",
+                                        background: "linear-gradient(135deg, rgba(212,175,55,0.22), rgba(212,175,55,0.06))",
+                                        border: "1px solid #D4AF37",
+                                        color: "#F0D78C",
+                                        fontSize: "0.72rem",
+                                        fontFamily: "JetBrains Mono, monospace",
+                                        fontWeight: 800,
+                                        letterSpacing: "0.06em",
+                                        boxShadow: "0 0 20px rgba(212,175,55,0.25)",
+                                    }}
+                                >
+                                    <span style={{ width: "7px", height: "7px", borderRadius: "50%", background: "#10B981", boxShadow: "0 0 8px #10B981" }} />
+                                    {d.badge || "AISC 360-22 / AISC 341-22 COMPLIANT"}
+                                </span>
 
-                        <a
-                            href="#contacto"
-                            onClick={() => setMobileOpen(false)}
-                            style={{
-                                marginTop: "1.25rem",
-                                display: "block",
-                                padding: "0.85rem 1.5rem",
-                                borderRadius: "8px",
-                                background: `linear-gradient(135deg, var(--gold-primary), var(--gold-light))`,
-                                color: "var(--obsidian)",
-                                fontWeight: 700,
-                                fontSize: "0.9rem",
-                                textDecoration: "none",
-                                textAlign: "center",
-                                boxShadow: "0 0 20px rgba(212,175,55,0.2)",
-                            }}
-                        >
-                            Inscribirse
-                        </a>
+                                <span
+                                    style={{
+                                        padding: "0.38rem 0.9rem",
+                                        borderRadius: "8px",
+                                        background: "rgba(22, 22, 27, 0.9)",
+                                        border: "1px solid rgba(255, 255, 255, 0.12)",
+                                        color: "#F2F0EB",
+                                        fontSize: "0.72rem",
+                                        fontFamily: "JetBrains Mono, monospace",
+                                        fontWeight: 600,
+                                    }}
+                                >
+                                    Nivel: {c.nivel || "Experto / Avanzado"}
+                                </span>
+
+                                <span
+                                    style={{
+                                        display: "inline-flex",
+                                        alignItems: "center",
+                                        gap: "0.4rem",
+                                        padding: "0.38rem 0.9rem",
+                                        borderRadius: "8px",
+                                        background: "rgba(16, 185, 129, 0.12)",
+                                        border: "1px solid rgba(16, 185, 129, 0.35)",
+                                        color: "#10B981",
+                                        fontSize: "0.72rem",
+                                        fontFamily: "JetBrains Mono, monospace",
+                                        fontWeight: 700,
+                                    }}
+                                >
+                                    <IconVerified /> Certificación Profesional
+                                </span>
+                            </div>
+
+                            {/* Título de Alto Rendimiento */}
+                            <h1
+                                style={{
+                                    fontSize: "clamp(2.3rem, 4.8vw, 3.6rem)",
+                                    fontWeight: 900,
+                                    lineHeight: 1.06,
+                                    letterSpacing: "-0.03em",
+                                    color: "#F2F0EB",
+                                    marginBottom: "1.15rem",
+                                    textShadow: "0 10px 40px rgba(0,0,0,0.9)",
+                                }}
+                            >
+                                {c.nombre || "Advance Steel: Conexiones Estructurales"}
+                            </h1>
+
+                            {/* Subtítulo Técnico */}
+                            <p
+                                style={{
+                                    fontSize: "clamp(1.05rem, 1.9vw, 1.22rem)",
+                                    lineHeight: 1.6,
+                                    color: "#9E9A92",
+                                    marginBottom: "1.85rem",
+                                    maxWidth: "840px",
+                                    fontWeight: 400,
+                                }}
+                            >
+                                {d.subtitulo || "Diseño, detallado y optimización de conexiones metálicas bajo códigos AISC 360, AISC 341 y AWS D1.1 con integración BIM avanzada."}
+                            </p>
+
+                            {/* Stack de Herramientas y Normativas */}
+                            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "0.55rem", marginBottom: "2.25rem" }}>
+                                <span style={{ fontSize: "0.7rem", fontFamily: "JetBrains Mono, monospace", color: "#D4AF37", fontWeight: 800, marginRight: "0.3rem", letterSpacing: "0.05em" }}>
+                                    STACK TÉCNICO:
+                                </span>
+                                {["Advance Steel 2026", "AISC 360-22", "AISC 341-22", "Revit Link API", "CNC/NC Export"].map((tag) => (
+                                    <span
+                                        key={tag}
+                                        style={{
+                                            fontSize: "0.73rem",
+                                            fontFamily: "JetBrains Mono, monospace",
+                                            color: "#F2F0EB",
+                                            background: "rgba(18, 18, 22, 0.95)",
+                                            border: "1px solid rgba(212, 175, 55, 0.35)",
+                                            borderRadius: "6px",
+                                            padding: "0.28rem 0.7rem",
+                                            boxShadow: "0 2px 10px rgba(0,0,0,0.6)",
+                                        }}
+                                    >
+                                        ⚡ {tag}
+                                    </span>
+                                ))}
+                            </div>
+
+                            {/* Consola Modular de KPIs App Grade */}
+                            <div
+                                style={{
+                                    display: "grid",
+                                    gridTemplateColumns: "repeat(auto-fit, minmax(170px, 1fr))",
+                                    gap: "0.85rem",
+                                    marginBottom: "1.25rem",
+                                }}
+                            >
+                                {/* Tarjeta 1: Rating */}
+                                <div
+                                    style={{
+                                        padding: "1.1rem 1.25rem",
+                                        borderRadius: "14px",
+                                        background: "linear-gradient(145deg, rgba(22,22,27,0.95) 0%, rgba(12,12,15,0.98) 100%)",
+                                        border: "1px solid rgba(212, 175, 55, 0.28)",
+                                        boxShadow: "0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06)",
+                                    }}
+                                >
+                                    <div style={{ fontSize: "0.68rem", fontFamily: "JetBrains Mono, monospace", color: "#9E9A92", letterSpacing: "0.05em" }}>VALORACIÓN</div>
+                                    <div style={{ display: "flex", alignItems: "center", gap: "0.45rem", marginTop: "0.35rem" }}>
+                                        <span style={{ color: "#F59E0B", display: "flex" }}><IconStar /></span>
+                                        <strong style={{ color: "#F2F0EB", fontSize: "1.25rem", fontWeight: 900 }}>{c.rating || "4.9"}</strong>
+                                        <span style={{ fontSize: "0.75rem", color: "#9E9A92" }}>({d.totalReseñas || 61})</span>
+                                    </div>
+                                </div>
+
+                                {/* Tarjeta 2: Inscritos */}
+                                <div
+                                    style={{
+                                        padding: "1.1rem 1.25rem",
+                                        borderRadius: "14px",
+                                        background: "linear-gradient(145deg, rgba(22,22,27,0.95) 0%, rgba(12,12,15,0.98) 100%)",
+                                        border: "1px solid rgba(212, 175, 55, 0.28)",
+                                        boxShadow: "0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06)",
+                                    }}
+                                >
+                                    <div style={{ fontSize: "0.68rem", fontFamily: "JetBrains Mono, monospace", color: "#9E9A92", letterSpacing: "0.05em" }}>INGENIEROS EN VIVO</div>
+                                    <div style={{ color: "#F2F0EB", fontWeight: 900, fontSize: "1.25rem", marginTop: "0.35rem", letterSpacing: "-0.02em" }}>
+                                        {c.estudiantes || 140}+ <span style={{ fontSize: "0.75rem", color: "#10B981", fontWeight: 700 }}>Activos</span>
+                                    </div>
+                                </div>
+
+                                {/* Tarjeta 3: Docente Senior */}
+                                <div
+                                    style={{
+                                        padding: "1.1rem 1.25rem",
+                                        borderRadius: "14px",
+                                        background: "linear-gradient(145deg, rgba(22,22,27,0.95) 0%, rgba(12,12,15,0.98) 100%)",
+                                        border: "1px solid rgba(212, 175, 55, 0.28)",
+                                        boxShadow: "0 12px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06)",
+                                    }}
+                                >
+                                    <div style={{ fontSize: "0.68rem", fontFamily: "JetBrains Mono, monospace", color: "#9E9A92", letterSpacing: "0.05em" }}>INSTRUCTOR SENIOR</div>
+                                    <div style={{ color: "#D4AF37", fontWeight: 800, fontSize: "0.98rem", marginTop: "0.45rem", fontFamily: "JetBrains Mono, monospace" }}>
+                                        {d.instructor?.nombre || "Ing. Darwin Acaro Z."}
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Barra de Acciones Principales (Demo 3D, Brochure, Compartir) */}
+                            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.75rem", alignItems: "center" }}>
+                                <button
+                                    type="button"
+                                    onClick={() => setIsVideoOpen(true)}
+                                    style={{
+                                        display: "inline-flex",
+                                        alignItems: "center",
+                                        gap: "0.6rem",
+                                        padding: "0.8rem 1.6rem",
+                                        borderRadius: "10px",
+                                        background: "linear-gradient(135deg, #D4AF37 0%, #F0D78C 100%)",
+                                        color: "#070708",
+                                        fontSize: "0.88rem",
+                                        fontFamily: "JetBrains Mono, monospace",
+                                        fontWeight: 900,
+                                        cursor: "pointer",
+                                        border: "none",
+                                        boxShadow: "0 0 25px rgba(212,175,55,0.4), 0 4px 15px rgba(0,0,0,0.4)",
+                                        transition: "transform 0.2s ease, boxShadow 0.2s ease",
+                                    }}
+                                    onMouseEnter={(e) => {
+                                        e.currentTarget.style.transform = "translateY(-1.5px)";
+                                        e.currentTarget.style.boxShadow = "0 0 35px rgba(212,175,55,0.6), 0 6px 20px rgba(0,0,0,0.5)";
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        e.currentTarget.style.transform = "translateY(0)";
+                                        e.currentTarget.style.boxShadow = "0 0 25px rgba(212,175,55,0.4), 0 4px 15px rgba(0,0,0,0.4)";
+                                    }}
+                                >
+                                    <IconPlay /> REPRODUCIR DEMO 3D
+                                </button>
+
+                                <button
+                                    type="button"
+                                    onClick={handleBrochureDownload}
+                                    style={{
+                                        display: "inline-flex",
+                                        alignItems: "center",
+                                        gap: "0.55rem",
+                                        padding: "0.8rem 1.3rem",
+                                        borderRadius: "10px",
+                                        background: "rgba(22, 22, 27, 0.9)",
+                                        border: "1px solid rgba(212, 175, 55, 0.35)",
+                                        color: "#F2F0EB",
+                                        fontSize: "0.84rem",
+                                        fontFamily: "JetBrains Mono, monospace",
+                                        fontWeight: 700,
+                                        cursor: "pointer",
+                                        transition: "all 0.2s ease",
+                                    }}
+                                    onMouseEnter={(e) => {
+                                        e.currentTarget.style.borderColor = "#D4AF37";
+                                        e.currentTarget.style.color = "#D4AF37";
+                                    }}
+                                    onMouseLeave={(e) => {
+                                        e.currentTarget.style.borderColor = "rgba(212, 175, 55, 0.35)";
+                                        e.currentTarget.style.color = "#F2F0EB";
+                                    }}
+                                >
+                                    <IconDownload /> TEMARIO TÉCNICO (PDF)
+                                </button>
+
+                                <button
+                                    type="button"
+                                    onClick={handleShare}
+                                    title="Copiar enlace del programa"
+                                    style={{
+                                        display: "inline-flex",
+                                        alignItems: "center",
+                                        gap: "0.5rem",
+                                        padding: "0.8rem 1.1rem",
+                                        borderRadius: "10px",
+                                        background: "rgba(22, 22, 27, 0.9)",
+                                        border: "1px solid rgba(212, 175, 55, 0.35)",
+                                        color: copied ? "#10B981" : "#9E9A92",
+                                        fontSize: "0.84rem",
+                                        fontFamily: "JetBrains Mono, monospace",
+                                        fontWeight: 700,
+                                        cursor: "pointer",
+                                        transition: "all 0.2s ease",
+                                    }}
+                                >
+                                    <IconShare /> {copied ? "COPIADO" : "COMPARTIR"}
+                                </button>
+                            </div>
+
+                        </div>
                     </div>
-                )}
-            </header>
+                </div>
+            </section>
 
-            <SearchModal isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
-            <CartDrawer />
+            {/* Reproductor de Video HD Integrado */}
+            <VideoModal
+                isOpen={isVideoOpen}
+                onClose={() => setIsVideoOpen(false)}
+                nombreCurso={c.nombre || "Advance Steel: Conexiones Estructurales"}
+                tituloLeccion="Demo de Detallado 3D y Automatización de Conexiones"
+            />
         </>
     );
 }
